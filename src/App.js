@@ -28,7 +28,7 @@ function App() {
                         </Link>
                         <Link to="/about" className="nav-item">About</Link>
                         <Link to="/contact" className="nav-item">Contact</Link>
-                        <a href="https://github.com/finite" className="nav-item" target="_blank" rel="noopener noreferrer">Github</a>
+                        <a href="https://git.gay/finite" className="nav-item" target="_blank" rel="noopener noreferrer">Git.gay</a>
                     </div>
                     <div className="title-bar-left">
                     </div>
@@ -43,7 +43,8 @@ function App() {
                                     <p className="description">
                                         A Unorganisation of the Past, Present, and Future.
                                     </p>
-                                    <p>explore all of our products and services below.</p>
+                                    <p>From developers around the world, Finite brings you experiences that you will enjoy</p>
+                                <p> explore the parts of Finite that provide creativity to players</p>
                                 </div>
                                 <div className="metro-grid">
                                     {tileData.tiles.map((tile) => (
@@ -64,11 +65,11 @@ function App() {
                 
                 <footer className="footer">
                     <p>© 2025 Finite. All rights reserved.</p>
-                    <div className="footer-links">
+                    {/* <div className="footer-links">
                         <a href="#" className="footer-link">Privacy Policy</a>
                         <a href="#" className="footer-link">Terms of Service</a>
                         <a href="#" className="footer-link">Documentation</a>
-                    </div>
+                    </div> */}
                 </footer>
             </div>
         </Router>
