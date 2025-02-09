@@ -1,6 +1,333 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto mono', monospace;
-    background-color: #222121;
+.App {
+  text-align: center;
+  background-color: #005a9e;
+  min-height: 100vh;
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%);
+  background-size: 60px 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  padding: 2rem;
+  color: white;
+}
+
+.title-bar {
+  background-color: #004275;
+  padding: 0.8rem 2rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  justify-content: space-between;
+}
+
+.title-bar-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+    margin-right: 2rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.nav-item {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.nav-item:hover {
+  opacity: 1;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.metro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.metro-tile {
+  aspect-ratio: 1;
+  padding: 1.8rem;
+  color: white;
+  text-align: left;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.metro-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.metro-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.metro-tile:hover::before {
+  opacity: 1;
+}
+
+.tile-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.tile-blue-clear {
+    background-color: rgba(0, 134, 201, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 134, 201, 0.1);
+}
+
+.tile-green-clear {
+    background-color: rgba(170, 255, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(170, 255, 0, 0.1);
+}
+
+.tile-red-clear {
+    background-color: rgba(255, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(255, 0, 0, 0.1);
+}
+
+.tile-yellow-clear {
+    background-color: rgba(255, 255, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(255, 255, 0, 0.1);
+}
+
+.tile-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+
+.tile-description {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  line-height: 1.4;
+  position: relative;
+}
+
+.main-content {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  flex-shrink: 0;
+  background-color: #004275;
+  padding: 2rem;
+  color: white;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.footer-link:hover {
+  opacity: 1;
+}
+
+.mobile-menu-button {
+  display: none;
+  font-size: 1.5rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.page-content {
+    padding: 2rem;
+    color: white;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.page-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.about-section,
+.contact-section {
+    text-align: left;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.about-section h2,
+.contact-section h2 {
+    margin-bottom: 1rem;
+}
+
+.contact-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.contact-link {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.products-grid {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.products-grid .metro-grid {
+    max-width: none;
+}
+
+@media (max-width: 768px) {
+    .products-grid .metro-grid {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+
+  .nav-menu.active {
+    display: flex;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: rgba(0, 66, 117, 0.95);
+    padding: 1.5rem;
+    gap: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .title-bar {
+    padding: 0.8rem 1rem;
+  }
+
+  .metro-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .metro-tile {
+    aspect-ratio: auto;
+    min-height: 200px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .metro-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .tile-title {
+    font-size: 1.4rem;
+  }
+
+  .tile-description {
+    font-size: 1rem;
+  }
+
+  .tile-icon {
+    font-size: 2rem;
+  }
 }
