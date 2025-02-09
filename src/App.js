@@ -16,6 +16,18 @@ function App() {
     return (
         <Router>
             <div className="App">
+                {/* meta tags for logo name and description */}
+
+                <meta name="title" content="Finite" />
+                <meta name="description" content="A Unorganisation of the Past, Present, and Future." />
+
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://fynite.vercel.app/" />
+                <meta property="og:title" content="Finite" />
+                <meta property="og:description" content="A Unorganisation of the Past, Present, and Future." />
+                <meta property="og:image" content="/logo.png" />
+
                 <div className="title-bar">
                     <button className="mobile-menu-button" onClick={toggleMenu}>
                         {isMenuOpen ? '✕' : '☰'}
