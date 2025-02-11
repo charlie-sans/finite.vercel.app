@@ -6,14 +6,16 @@
       "title": "KodeRunner",
       "description": "an Interactive VSCode Experience wherever you are",
       "icon": "⌨️",
-      "colorClass": "tile-blue-clear"
+      "colorClass": "tile-blue-clear",
+      "link": "/koderunner"
     },
     {
       "id": "masm",
       "title": "Micro Assembly",
       "description": "Simplified X86 Assembly Language",
       "icon": "📟",
-      "colorClass": "tile-green-clear"
+      "colorClass": "tile-green-clear",
+      "link": "/masm"
     }
   ]
 }

@@ -5,7 +5,10 @@ import tileData from './data/tiles.json';
 import Products from './pages/Products';
 import About from './pages/About';
 import Contact from './pages/Contact';
-
+import NotFound from './404';
+import ProductPage  from './koderunner/ProductPage';
+import Masm from './masm/masm';
+import Masm_Docs from './masm/documentation';
 function App() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -40,6 +43,7 @@ function App() {
                         </Link>
                         <Link to="/about" className="nav-item">About</Link>
                         <Link to="/contact" className="nav-item">Contact</Link>
+                        <Link to="/masm/docs" className="nav-item">Docs</Link>
                         <a href="https://git.gay/finite" className="nav-item" target="_blank" rel="noopener noreferrer">Git.gay</a>
                     </div>
                     <div className="title-bar-left">
@@ -60,11 +64,13 @@ function App() {
                                 </div>
                                 <div className="metro-grid">
                                     {tileData.tiles.map((tile) => (
+                                        <a href={tile.link} className="metro-tile-link">
                                         <div key={tile.id} className={`metro-tile ${tile.colorClass}`}>
                                             <div className="tile-icon">{tile.icon}</div>
                                             <div className="tile-title">{tile.title}</div>
                                             <div className="tile-description">{tile.description}</div>
                                         </div>
+                                        </a>
                                     ))}
                                 </div>
                             </>
@@ -72,6 +78,10 @@ function App() {
                         <Route path="/products" element={<Products />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/contact" element={<Contact />} />
+                        <Route path="/koderunner" element={<ProductPage />} />
+                        <Route path="/masm" element={<Masm />} />
+                        <Route path="/masm/docs" element={<Masm_Docs />} />
+                        <Route path="*" element={<NotFound/>} />
                     </Routes>
                 </div>
                 
@@ -87,5 +97,6 @@ function App() {
         </Router>
     );
 }
+
 
 export default App;
