@@ -101,6 +101,7 @@ const Masm = () => {  // Capitalize component name for React convention
         <div className="cta-buttons">
           <a href="/masm/docs" className="btn btn-primary">Documentation</a>
           <a href="https://git.gay/finite/MicroASM" className="btn btn-secondary">View Source</a>
+          <a href="https://github.com/Fy-nite"> we have a github mirror </a>
           {/* <a href="/playground" className="btn btn-secondary">Try Online</a> */}
         </div>
       </section>
