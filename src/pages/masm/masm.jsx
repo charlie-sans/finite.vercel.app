@@ -1,5 +1,6 @@
 import React from 'react';
-import '../styles/ProductPage.css';  // Update the import path
+import './ProductPage.css';  // Update the import path
+
 
 const Masm = () => {  // Capitalize component name for React convention
   const features = [

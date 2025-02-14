@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css';
+import './styles/App.css';
 import tileData from './data/tiles.json';
 import Products from './pages/Products';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import NotFound from './404';
-import ProductPage  from './koderunner/ProductPage';
-import Masm from './masm/masm';
-import Docs from './docs/documentation';
+import NotFound from './pages/404';
+import ProductPage  from './pages/koderunner/ProductPage';
+import Masm from './pages/masm/masm';
+import Docs from './pages/docs/documentation';
 
 function App() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);

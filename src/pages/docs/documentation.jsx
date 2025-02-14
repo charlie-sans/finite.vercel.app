@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import '../styles/documentation.css'
+import '../../styles/documentation.css'
 import documentationFiles from './data'
 const CACHE_PREFIX = 'docs_cache_'
 const CACHE_EXPIRY = 24 * 60 * 60 * 1000 // 24 hours

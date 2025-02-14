@@ -1,40 +1,41 @@
 .product-page {
-  max-width: 1200px;
-  margin: 0 auto;
+  color: white;
   padding: 2rem;
-  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .hero {
   text-align: center;
-  padding: 4rem 0;
-  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-  color: white;
-  border-radius: 12px;
   margin-bottom: 3rem;
 }
 
 .hero h1 {
-  font-size: 3.5rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
 }
 
 .tagline {
   font-size: 1.5rem;
-  color: #c0c0c0;
+  opacity: 0.9;
+}
+
+.overview {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 3rem;
 }
 
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  margin: 3rem 0;
+  margin-bottom: 3rem;
 }
 
 .feature-card {
+  background: rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   border-radius: 8px;
-  background: #f5f5f5;
   transition: transform 0.2s;
 }
 
@@ -43,27 +44,33 @@
 }
 
 .feature-icon {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
   display: block;
 }
 
 .code-preview {
-  background: #1e1e1e;
-  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
   padding: 2rem;
-  margin: 3rem 0;
+  border-radius: 8px;
+  margin-bottom: 3rem;
 }
 
 .code-preview pre {
-  margin: 0;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  border-radius: 4px;
   overflow-x: auto;
+  text-align: left;
+  white-space: pre;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .code-preview code {
-  color: #d4d4d4;
-  font-family: 'Fira Code', monospace;
-  line-height: 1.5;
+  display: block;
+  text-align: left;
 }
 
 .tools-grid {
@@ -74,15 +81,14 @@
 }
 
 .tool {
+  background: rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
-  background: #f9f9f9;
   border-radius: 8px;
-  text-align: center;
 }
 
 .cta {
   text-align: center;
-  padding: 4rem 0;
+  margin: 4rem 0;
 }
 
 .cta-buttons {
@@ -93,40 +99,31 @@
 }
 
 .btn {
-  padding: 0.8rem 1.6rem;
-  border-radius: 6px;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
   text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .btn-primary {
-  background: #4a90e2;
+  background: #0086c9;
   color: white;
 }
 
 .btn-secondary {
-  background: #e2e2e2;
-  color: #333;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 .product-footer {
   text-align: center;
   margin-top: 4rem;
   padding-top: 2rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 768px) {
-  .hero {
-    padding: 2rem 0;
-  }
-
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-
-  .cta-buttons {
-    flex-direction: column;
-  }
+.product-footer a {
+  color: #0086c9;
+  text-decoration: none;
+  margin-left: 0.5rem;
 }
