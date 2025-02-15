@@ -124,33 +124,48 @@ const FileTreeItem = ({ item, depth = 0, selectedFile, onSelect }) => {
 
 const Documentation = ({ link }) => {
     const [markdown, setMarkdown] = useState('')
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         const fetchAndCacheDoc = async () => {
-            // Try to get from cache first
+            setError(null)
+            
             const cached = getCachedDoc(link)
             if (cached) {
                 setMarkdown(cached)
                 return
             }
 
-            // If not in cache, fetch from API
-            const start_link = "https://git.gay/api/v1/repos/finite/MicroASM/contents/"
+            // Use process.env.PUBLIC_URL for proper public path resolution
+            const start_link = `${process.env.PUBLIC_URL || ''}/docs/`
+            const fullPath = start_link + link
+            
             try {
-                const res = await fetch(start_link + link)
-                const data = await res.json()
-                const content = atob(data.content)
+                console.log('Fetching document from:', fullPath)
+                const res = await fetch(fullPath)
                 
-                // Cache the content
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`)
+                }
+                
+                const content = await res.text()
+                console.log('Document fetched successfully, length:', content.length)
+                
                 setCachedDoc(link, content)
                 setMarkdown(content)
             } catch (error) {
                 console.error('Error fetching documentation:', error)
+                setError(`Failed to load document: ${error.message}`)
+                setMarkdown('')
             }
         }
 
         fetchAndCacheDoc()
     }, [link])
+
+    if (error) {
+        return <div className="documentation error">{error}</div>
+    }
 
     return (
         <div className='documentation'>
