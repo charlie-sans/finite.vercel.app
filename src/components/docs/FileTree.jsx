@@ -1,63 +1,40 @@
 import { useState } from 'react'
 
-const FileTreeItem = ({ item, depth = 0, selectedFile, onSelect }) => {
-    const [isOpen, setIsOpen] = useState(true);
-    const isFolder = item.type === 'folder';
-    const isLast = item.isLast;
-
-    const getPrefix = (depth) => {
-        return Array(depth).fill('│  ').join('');
+const FileTreeItem = ({ item, selectedFile, onSelect, depth = 0 }) => {
+    const handleClick = (e) => {
+        e.preventDefault();
+        onSelect(item);
     };
 
-    const getFolderIcon = (isOpen) => {
-        return isOpen ? '▼' : '▶';
-    };
-
-    const getFileIcon = () => {
-        return '📄';
-    };
-
+    const isSelected = selectedFile?.path === item.path;
+    
     return (
-        <>
-            <li 
-                className={`docs-item ${
-                    !isFolder && selectedFile?.path === item.path ? 'active' : ''
-                }`}
-                onClick={(e) => {
-                    e.stopPropagation();
-                    if (isFolder) {
-                        setIsOpen(!isOpen);
-                    } else {
-                        onSelect(item);
-                    }
-                }}
+        <li>
+            <div 
+                className={`docs-item ${isSelected ? 'active' : ''}`}
+                onClick={handleClick}
+                style={{ paddingLeft: `${depth * 20}px` }}
             >
-                <div className="tree-line">
-                    <span className="tree-prefix">{getPrefix(depth)}</span>
-                    <span className="tree-branch">{isLast ? '└─' : '├─'}</span>
-                    <span className="tree-icon">
-                        {isFolder ? getFolderIcon(isOpen) : getFileIcon()}
-                    </span>
-                    <span className="tree-name">{item.name}</span>
-                </div>
-            </li>
-            {isFolder && isOpen && (
+                <span className="docs-item-icon">
+                    {item.type === 'folder' ? '📁' : '📄'}
+                </span>
+                <span>{item.name}</span>
+            </div>
+            
+            {item.type === 'folder' && item.children && (
                 <ul className="docs-nested-list">
-                    {item.children.map((child, index) => (
+                    {item.children.map(child => (
                         <FileTreeItem
                             key={child.path || child.name}
-                            item={{
-                                ...child,
-                                isLast: index === item.children.length - 1
-                            }}
-                            depth={depth + 1}
+                            item={child}
                             selectedFile={selectedFile}
                             onSelect={onSelect}
+                            depth={depth + 1}
                         />
                     ))}
                 </ul>
             )}
-        </>
+        </li>
     );
 };
 

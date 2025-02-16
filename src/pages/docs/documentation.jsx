@@ -236,19 +236,32 @@ const Docs = () => {
 
     const handleFileSelect = (file) => {
         if (file.type === 'file') {
-            navigate(`/docs/${file.path}`);
+            // Update URL without navigation
+            window.history.pushState({}, '', `/docs/${file.path}`);
             setSelectedFile(file);
+            
+            // Ensure main window is open when selecting a file
+            setWindows(prev => ({
+                ...prev,
+                main: true
+            }));
         }
     };
 
+    // Update initial file selection
     useEffect(() => {
-        if (path) {
-            const file = findFileInTree(fileTree, path);
+        const currentPath = window.location.pathname.replace('/docs/', '');
+        if (currentPath) {
+            const file = findFileInTree(fileTree, currentPath);
             if (file) {
                 setSelectedFile(file);
+                setWindows(prev => ({
+                    ...prev,
+                    main: true
+                }));
             }
         }
-    }, [path, fileTree]);
+    }, [fileTree]);
 
     // Helper function to find file in tree
     const findFileInTree = (tree, path) => {
@@ -270,7 +283,7 @@ const Docs = () => {
                 {windows.sidebar && (
                     <DraggableWindow className="terminal-sidebar">
                         <h2>Documentation</h2>
-                        <ul className="docs-list">
+                        <ul className="docs-list" onClick={e => e.preventDefault()}>
                             {fileTree.map((item, index) => (
                                 <FileTreeItem
                                     key={item.path || item.name}
