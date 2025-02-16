@@ -25,7 +25,7 @@ LBL main
     ADD RAX RBX ;; add rax and rbx and put output in rax (DEST += SRC)
     CALL #printf RAX ;; call pushes RIP to store it and then when it's done, pops back rip to go back to the instruction after this
     HLT ;; allways make sure you have this in your program, CMASM and the others might not respect your non halted code.
-    ```
+```
 
 
 as you can see, the IO goes <Dest> <src> instead of <Src>, <Dest>.
