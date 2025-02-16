@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import Editor from '@monaco-editor/react';
 import Split from 'react-split';
 import { loadDocument, saveDocument } from '../../api/docs';
+import EditorWindow from '../windows/EditorWindow';
 
 const MonacoEditor = ({ onClose, onSave }) => {
     const [files, setFiles] = useState([]);
@@ -66,60 +67,65 @@ const MonacoEditor = ({ onClose, onSave }) => {
     };
 
     return (
-        <div className="monaco-editor-container">
-            <div className="editor-header">
-                <div className="editor-tabs">
-                    {activeFile && (
-                        <div className="editor-tab">
-                            {modified ? '● ' : ''}{activeFile.name}
-                        </div>
-                    )}
-                </div>
-                <div className="editor-controls">
-                    <button 
-                        onClick={handleSave} 
-                        disabled={!modified}
-                        className={modified ? 'modified' : ''}
-                    >
-                        Save
-                    </button>
-                    <button onClick={onClose}>Close</button>
-                </div>
+        <EditorWindow onClose={onClose}>
+            <div className="editor-tree">
+                {renderTree(files)}
             </div>
-            <Split
-                sizes={[20, 80]}
-                minSize={100}
-                gutterSize={8}
-                className="editor-split"
-            >
-                <div className="editor-sidebar">
-                    <div className="editor-tree">
-                        {renderTree(files)}
+            <div className="editor-workspace">
+                <div className="editor-toolbar">
+                    <div className="editor-tabs">
+                        {activeFile && (
+                            <div className="editor-tab">
+                                {modified ? '● ' : ''}{activeFile.name}
+                            </div>
+                        )}
+                    </div>
+                    <div className="editor-controls">
+                        <button 
+                            onClick={handleSave} 
+                            disabled={!modified}
+                            className={modified ? 'modified' : ''}
+                        >
+                            Save
+                        </button>
+                        <button onClick={onClose}>Close</button>
                     </div>
                 </div>
-                <div className="editor-main">
-                    <Editor
-                        height="100%"
-                        theme="vs-dark"
-                        defaultLanguage="markdown"
-                        value={content}
-                        onChange={(value) => {
-                            setContent(value || '');
-                            setModified(true);
-                        }}
-                        onMount={(editor) => editorRef.current = editor}
-                        options={{
-                            minimap: { enabled: false },
-                            fontSize: 14,
-                            wordWrap: 'on',
-                            lineNumbers: 'on',
-                            renderWhitespace: 'boundary',
-                            scrollBeyondLastLine: false
-                        }}
-                    />
-                </div>
-            </Split>
-        </div>
+                <Split
+                    sizes={[70, 30]}
+                    direction="vertical"
+                    className="editor-split"
+                >
+                    <div className="monaco-container">
+                        <Editor
+                            height="100%"
+                            theme="vs-dark"
+                            defaultLanguage="markdown"
+                            value={content}
+                            onChange={(value) => {
+                                setContent(value || '');
+                                setModified(true);
+                            }}
+                            onMount={(editor) => editorRef.current = editor}
+                            options={{
+                                minimap: { enabled: false },
+                                fontSize: 14,
+                                wordWrap: 'on',
+                                lineNumbers: 'on',
+                                renderWhitespace: 'boundary',
+                                scrollBeyondLastLine: false
+                            }}
+                        />
+                    </div>
+                    <div className="preview-panel">
+                        <h3>Preview</h3>
+                        <div className="preview-content">
+                            {content}
+                        </div>
+                    </div>
+                </Split>
+            </div>
+        </EditorWindow>
     );
 };
 

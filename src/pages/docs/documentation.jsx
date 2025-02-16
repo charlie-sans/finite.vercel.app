@@ -178,7 +178,7 @@ const DraggableWindow = ({ children, className, onClose }) => {
     return (
         <div
             ref={windowRef}
-            className={`mdi-window ${className}`}
+            className={`window ${className}`}
             style={{
                 position: 'fixed',
                 left: position.x,
@@ -187,10 +187,15 @@ const DraggableWindow = ({ children, className, onClose }) => {
             }}
             onMouseDown={handleMouseDown}
         >
-            <div ref={headerRef} className="mdi-window-header">
+            <div ref={headerRef} className="window-header">
                 {children[0]}
+                {onClose && (
+                    <div className="window-controls">
+                        <button onClick={onClose}>✕</button>
+                    </div>
+                )}
             </div>
-            <div className="mdi-window-content">
+            <div className="window-content">
                 {children[1]}
             </div>
         </div>
