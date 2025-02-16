@@ -87,7 +87,7 @@ const Documentation = ({ link, metadata }) => {
 
     return (
         <div className='documentation'>
-            <DocMetadata metadata={dynamicMetadata} />
+            {dynamicMetadata && <DocMetadata metadata={dynamicMetadata} />}
             <Markdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -98,6 +98,11 @@ const Documentation = ({ link, metadata }) => {
                                 style={vscDarkPlus}
                                 language={match[1]}
                                 PreTag="div"
+                                customStyle={{
+                                    margin: '1rem 0',
+                                    borderRadius: '6px',
+                                    maxWidth: '100%'
+                                }}
                                 {...props}
                             >
                                 {String(children).replace(/\n$/, '')}
@@ -107,6 +112,9 @@ const Documentation = ({ link, metadata }) => {
                                 {children}
                             </code>
                         )
+                    },
+                    img({node, ...props}) {
+                        return <img style={{ maxWidth: '100%', height: 'auto' }} {...props} />
                     }
                 }}
             >

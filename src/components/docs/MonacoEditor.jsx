@@ -135,7 +135,14 @@ const MonacoEditor = ({ onClose, onSave }) => {
             defaultSize={{ width: 1400, height: 900 }}
             minSize={{ width: 800, height: 600 }}
         >
-            <div className="editor-layout">
+            <Split
+                sizes={[20, 80]}
+                minSize={[200, 400]}
+                maxSize={[400, Infinity]}
+                expandToMin={false}
+                gutterSize={4}
+                className="editor-layout split-horizontal"
+            >
                 <div className="editor-sidebar">
                     <div className="editor-tree-container">
                         {error ? (
@@ -266,7 +273,7 @@ const MonacoEditor = ({ onClose, onSave }) => {
                         </Split>
                     </div>
                 </div>
-            </div>
+            </Split>
         </BaseWindow>
     );
 };

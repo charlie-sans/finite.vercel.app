@@ -121,21 +121,22 @@
  * Includes headings, paragraphs, code blocks, etc.
  */
 .documentation {
-    max-width: 800px;
+    max-width: 100%;
     width: 100%;
-    margin: 0 auto;
-    padding: 2rem;
+    margin: 0;
+    padding: 1rem;
     background-color: #282828;
     border: 1px solid #3f3f46;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    min-height: min-content;
+    overflow-x: hidden;
 }
 
-/* Typography styles for documentation content
- * Consistent heading sizes and spacing
- * Text colors for dark theme
- */
+.documentation img {
+    max-width: 100%;
+    height: auto;
+}
+
 .documentation h1 {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
@@ -174,7 +175,8 @@
 .documentation pre {
     margin: 1rem 0;
     border-radius: 6px;
-    overflow: auto;
+    overflow-x: auto;
+    max-width: 100%;
     background-color: #18181b !important;
     border: 1px solid #3f3f46;
 }
@@ -204,6 +206,8 @@
  */
 .documentation table {
     width: 100%;
+    overflow-x: auto;
+    display: block;
     border-collapse: collapse;
     margin: 1rem 0;
 }
@@ -447,6 +451,23 @@ html, body {
     padding: 1rem;
     height: calc(100vh - 4rem);
     overflow: hidden;
+}
+
+.terminal-main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.terminal-main .documentation {
+    max-width: 900px;
+    width: 100%;
 }
 
 .terminal-main {
@@ -1688,4 +1709,45 @@ html, body {
 .context-menu button:hover {
     background: #3f3f46;
     color: #60a5fa;
+}
+
+/* Split Panel Styles */
+.split-horizontal {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.split-horizontal > .gutter {
+    background-color: #3f3f46;
+    cursor: col-resize;
+    width: 4px !important;
+    margin: 0;
+    position: relative;
+}
+
+.split-horizontal > .gutter:hover {
+    background-color: #60a5fa;
+}
+
+.split-horizontal > .gutter::after {
+    content: "";
+    position: absolute;
+    left: -4px;
+    right: -4px;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+/* Ensure sidebar maintains minimum width */
+.editor-sidebar {
+    min-width: 200px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.editor-main {
+    min-width: 400px;
+    width: 100%;
 }
