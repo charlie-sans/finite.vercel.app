@@ -93,13 +93,13 @@ function App() {
                                                                                 </a>
                                                                             ))}
                                                                         </div>
-                                        {/* Add more projects as needed */}
+                                    
                                     </div>
                                 </section>
                                 <section className="team">
                                     <h2>Meet the Team</h2>
                                     <div className="team-grid">
-                                        {/* Add team member details here */}
+                                  
                                         <div className="team-member">
                                             <h3>Charlie-san</h3>
                                             <img src="/avatars/charlie.jpeg" alt="Charlie-san" style={{ width: '120px', height: '120px' }} />
