@@ -18,6 +18,8 @@ const BaseWindow = ({
     const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
     const [isResizing, setIsResizing] = useState(false);
     const [resizeStart, setResizeStart] = useState({ x: 0, y: 0 });
+    const [isMaximized, setIsMaximized] = useState(false);
+    const [preMaximizeState, setPreMaximizeState] = useState(null);
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -74,23 +76,72 @@ const BaseWindow = ({
         setResizeStart({ x: e.clientX, y: e.clientY });
     };
 
+    const handleMaximize = () => {
+        if (!isMaximized) {
+            // Store current state before maximizing
+            setPreMaximizeState({ position, size });
+            
+            // Maximize to fill the viewport
+            setPosition({ x: 0, y: 0 });
+            setSize({
+                width: window.innerWidth,
+                height: window.innerHeight - 40 // Account for taskbar height
+            });
+            setIsMaximized(true);
+        } else {
+            // Restore previous state
+            if (preMaximizeState) {
+                setPosition(preMaximizeState.position);
+                setSize(preMaximizeState.size);
+            }
+            setIsMaximized(false);
+        }
+    };
+
+    // Add resize handlers for each edge/corner
+    const startResize = (e, direction) => {
+        e.preventDefault();
+        if (isMaximized) return;
+        
+        setIsResizing({ active: true, direction });
+        setResizeStart({ x: e.clientX, y: e.clientY });
+    };
+
     return (
         <div
             ref={windowRef}
-            className={`window ${className}`}
+            className={`window ${className} ${isMaximized ? 'maximized' : ''}`}
             style={{
                 position: 'fixed',
                 left: position.x,
                 top: position.y,
                 width: size.width,
-                height: size.height
+                height: size.height,
+                transform: 'none',
+                margin: 0,
+                transition: isResizing ? 'none' : 'all 0.1s ease'
             }}
             onMouseDown={handleMouseDown}
         >
             <div ref={headerRef} className="window-header">
                 <h2>{title}</h2>
                 <div className="window-controls">
-                    {onClose && <button onClick={onClose}>✕</button>}
+                    {isResizable && (
+                        <button 
+                            className="window-control-btn maximize"
+                            onClick={handleMaximize}
+                        >
+                            {isMaximized ? '❐' : '□'}
+                        </button>
+                    )}
+                    {onClose && (
+                        <button 
+                            className="window-control-btn close"
+                            onClick={onClose}
+                        >
+                            ✕
+                        </button>
+                    )}
                 </div>
             </div>
             
@@ -98,11 +149,17 @@ const BaseWindow = ({
                 {children}
             </div>
             
-            {isResizable && (
-                <div 
-                    className="window-resize-handle"
-                    onMouseDown={handleResizeStart}
-                />
+            {isResizable && !isMaximized && (
+                <>
+                    <div className="resize-handle top" onMouseDown={e => startResize(e, 'top')} />
+                    <div className="resize-handle right" onMouseDown={e => startResize(e, 'right')} />
+                    <div className="resize-handle bottom" onMouseDown={e => startResize(e, 'bottom')} />
+                    <div className="resize-handle left" onMouseDown={e => startResize(e, 'left')} />
+                    <div className="resize-handle top-left" onMouseDown={e => startResize(e, 'top-left')} />
+                    <div className="resize-handle top-right" onMouseDown={e => startResize(e, 'top-right')} />
+                    <div className="resize-handle bottom-left" onMouseDown={e => startResize(e, 'bottom-left')} />
+                    <div className="resize-handle bottom-right" onMouseDown={e => startResize(e, 'bottom-right')} />
+                </>
             )}
         </div>
     );

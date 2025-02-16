@@ -3,6 +3,10 @@ import Editor from '@monaco-editor/react';
 import Split from 'react-split';
 import { loadDocument, saveDocument } from '../../api/docs';
 import EditorWindow from '../windows/EditorWindow';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const MonacoEditor = ({ onClose, onSave }) => {
     const [files, setFiles] = useState([]);
@@ -57,7 +61,10 @@ const MonacoEditor = ({ onClose, onSave }) => {
                             className={`editor-tree-item ${item.type} ${activeFile?.path === item.path ? 'active' : ''}`}
                             onClick={() => item.type === 'file' && handleFileSelect(item)}
                         >
-                            {item.type === 'folder' ? '📁' : '📄'} {item.name}
+                            <span style={{ width: '16px', textAlign: 'center' }}>
+                                {item.type === 'folder' ? '📁' : '📄'}
+                            </span>
+                            {item.name}
                         </div>
                         {item.children && renderTree(item.children, depth + 1)}
                     </div>
@@ -73,13 +80,11 @@ const MonacoEditor = ({ onClose, onSave }) => {
             </div>
             <div className="editor-workspace">
                 <div className="editor-toolbar">
-                    <div className="editor-tabs">
-                        {activeFile && (
-                            <div className="editor-tab">
-                                {modified ? '● ' : ''}{activeFile.name}
-                            </div>
-                        )}
-                    </div>
+                    {activeFile && (
+                        <div className="editor-tabs">
+                            {modified ? '● ' : ''}{activeFile.name}
+                        </div>
+                    )}
                     <div className="editor-controls">
                         <button 
                             onClick={handleSave} 
@@ -88,42 +93,69 @@ const MonacoEditor = ({ onClose, onSave }) => {
                         >
                             Save
                         </button>
-                        <button onClick={onClose}>Close</button>
                     </div>
                 </div>
-                <Split
-                    sizes={[70, 30]}
-                    direction="vertical"
-                    className="editor-split"
-                >
-                    <div className="monaco-container">
-                        <Editor
-                            height="100%"
-                            theme="vs-dark"
-                            defaultLanguage="markdown"
-                            value={content}
-                            onChange={(value) => {
-                                setContent(value || '');
-                                setModified(true);
-                            }}
-                            onMount={(editor) => editorRef.current = editor}
-                            options={{
-                                minimap: { enabled: false },
-                                fontSize: 14,
-                                wordWrap: 'on',
-                                lineNumbers: 'on',
-                                renderWhitespace: 'boundary',
-                                scrollBeyondLastLine: false
-                            }}
-                        />
-                    </div>
-                    <div className="preview-panel">
-                        <h3>Preview</h3>
-                        <div className="preview-content">
-                            {content}
+                <div className="editor-content-area">
+                    <Split 
+                        sizes={[70, 30]} 
+                        direction="horizontal"
+                        className="split-layout"
+                    >
+                        <div className="monaco-container">
+                            <Editor
+                                height="100%"
+                                theme="vs-dark"
+                                defaultLanguage="markdown"
+                                value={content}
+                                onChange={(value) => {
+                                    setContent(value || '');
+                                    setModified(true);
+                                }}
+                                onMount={(editor) => editorRef.current = editor}
+                                options={{
+                                    minimap: { enabled: false },
+                                    fontSize: 14,
+                                    fontFamily: "'JetBrains Mono', 'Consolas', monospace",
+                                    wordWrap: 'on',
+                                    lineNumbers: 'on',
+                                    renderWhitespace: 'boundary',
+                                    scrollBeyondLastLine: false,
+                                    automaticLayout: true,
+                                    fixedOverflowWidgets: true
+                                }}
+                            />
                         </div>
-                    </div>
-                </Split>
+                        <div className="preview-panel">
+                            <h3>Preview</h3>
+                            <div className="preview-content">
+                                <Markdown
+                                    remarkPlugins={[remarkGfm]}
+                                    components={{
+                                        code({node, inline, className, children, ...props}) {
+                                            const match = /language-(\w+)/.exec(className || '')
+                                            return !inline && match ? (
+                                                <SyntaxHighlighter
+                                                    style={vscDarkPlus}
+                                                    language={match[1]}
+                                                    PreTag="div"
+                                                    {...props}
+                                                >
+                                                    {String(children).replace(/\n$/, '')}
+                                                </SyntaxHighlighter>
+                                            ) : (
+                                                <code className={className} {...props}>
+                                                    {children}
+                                                </code>
+                                            )
+                                        }
+                                    }}
+                                >
+                                    {content}
+                                </Markdown>
+                            </div>
+                        </div>
+                    </Split>
+                </div>
             </div>
         </EditorWindow>
     );
