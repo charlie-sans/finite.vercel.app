@@ -21,6 +21,66 @@ const BaseWindow = ({
     const [isMaximized, setIsMaximized] = useState(false);
     const [preMaximizeState, setPreMaximizeState] = useState(null);
 
+    const handleResize = (e, direction) => {
+        if (isMaximized) return;
+
+        const rect = windowRef.current.getBoundingClientRect();
+        let newX = position.x;
+        let newY = position.y;
+        let newWidth = size.width;
+        let newHeight = size.height;
+        
+        const deltaX = e.clientX - resizeStart.x;
+        const deltaY = e.clientY - resizeStart.y;
+
+        switch (direction) {
+            case 'right':
+                newWidth = Math.max(minSize.width, size.width + deltaX);
+                break;
+            case 'bottom':
+                newHeight = Math.max(minSize.height, size.height + deltaY);
+                break;
+            case 'left':
+                newWidth = Math.max(minSize.width, size.width - deltaX);
+                newX = position.x + deltaX;
+                break;
+            case 'top':
+                newHeight = Math.max(minSize.height, size.height - deltaY);
+                newY = position.y + deltaY;
+                break;
+            case 'top-right':
+                newWidth = Math.max(minSize.width, size.width + deltaX);
+                newHeight = Math.max(minSize.height, size.height - deltaY);
+                newY = position.y + deltaY;
+                break;
+            case 'bottom-right':
+                newWidth = Math.max(minSize.width, size.width + deltaX);
+                newHeight = Math.max(minSize.height, size.height + deltaY);
+                break;
+            case 'bottom-left':
+                newWidth = Math.max(minSize.width, size.width - deltaX);
+                newHeight = Math.max(minSize.height, size.height + deltaY);
+                newX = position.x + deltaX;
+                break;
+            case 'top-left':
+                newWidth = Math.max(minSize.width, size.width - deltaX);
+                newHeight = Math.max(minSize.height, size.height - deltaY);
+                newX = position.x + deltaX;
+                newY = position.y + deltaY;
+                break;
+        }
+
+        // Constrain to viewport
+        const maxX = window.innerWidth - newWidth;
+        const maxY = window.innerHeight - 40 - newHeight; // Account for taskbar
+        newX = Math.min(Math.max(0, newX), maxX);
+        newY = Math.min(Math.max(0, newY), maxY);
+
+        setPosition({ x: newX, y: newY });
+        setSize({ width: newWidth, height: newHeight });
+        setResizeStart({ x: e.clientX, y: e.clientY });
+    };
+
     useEffect(() => {
         const handleMouseMove = (e) => {
             if (isDragging) {
@@ -35,12 +95,8 @@ const BaseWindow = ({
                 });
             }
             
-            if (isResizing) {
-                const newWidth = Math.max(minSize.width, size.width + (e.clientX - resizeStart.x));
-                const newHeight = Math.max(minSize.height, size.height + (e.clientY - resizeStart.y));
-                
-                setSize({ width: newWidth, height: newHeight });
-                setResizeStart({ x: e.clientX, y: e.clientY });
+            if (isResizing.active) {
+                handleResize(e, isResizing.direction);
             }
         };
 
@@ -117,9 +173,15 @@ const BaseWindow = ({
                 top: position.y,
                 width: size.width,
                 height: size.height,
+                '--window-width': `${size.width}px`,
+                '--window-height': `${size.height}px`,
+                '--window-min-width': `${minSize.width}px`,
+                '--window-min-height': `${minSize.height}px`,
                 transform: 'none',
                 margin: 0,
-                transition: isResizing ? 'none' : 'all 0.1s ease'
+                transition: isResizing ? 'none' : 'all 0.1s ease',
+                maxWidth: '100vw',
+                maxHeight: 'calc(100vh - 40px)', // Account for taskbar
             }}
             onMouseDown={handleMouseDown}
         >

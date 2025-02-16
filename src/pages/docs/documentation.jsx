@@ -3,7 +3,7 @@ import { useEffect, useState, useRef, useCallback } from 'react'
 import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import FileTreeItem from '../../components/docs/FileTree'
+import FileTreeItem from '../../components/docs/FileTreeItem'
 import DocMetadata from '../../components/docs/DocMetadata'
 import '../../styles/documentation.css'
 import documentationFiles from './data'
@@ -12,6 +12,7 @@ import Taskbar from '../../components/docs/Taskbar'
 import MonacoEditor from '../../components/docs/MonacoEditor'
 import { getFileTree } from '../../api/docs'
 import { useParams, useNavigate } from 'react-router-dom'
+import BaseWindow from '../../components/windows/BaseWindow';
 const CACHE_PREFIX = 'docs_cache_'
 const CACHE_EXPIRY = 24 * 60 * 60 * 1000 // 24 hours
 
@@ -115,93 +116,6 @@ const Documentation = ({ link, metadata }) => {
     )
 }
 
-const DraggableWindow = ({ children, className, onClose }) => {
-    const windowRef = useRef(null);
-    const headerRef = useRef(null);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [initialPosition, setInitialPosition] = useState(null);
-    const [isDragging, setIsDragging] = useState(false);
-    const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-
-    useEffect(() => {
-        if (!initialPosition && windowRef.current) {
-            const rect = windowRef.current.getBoundingClientRect();
-            setInitialPosition({ x: rect.left, y: rect.top });
-            setPosition({ x: rect.left, y: rect.top });
-        }
-    }, [initialPosition]);
-
-    useEffect(() => {
-        const handleMouseMove = (e) => {
-            if (isDragging && windowRef.current) {
-                const newX = e.clientX - dragOffset.x;
-                const newY = e.clientY - dragOffset.y;
-
-                // Prevent dragging outside viewport
-                const maxX = window.innerWidth - windowRef.current.offsetWidth;
-                const maxY = window.innerHeight - windowRef.current.offsetHeight;
-                
-                setPosition({
-                    x: Math.min(Math.max(0, newX), maxX),
-                    y: Math.min(Math.max(0, newY), maxY)
-                });
-            }
-        };
-
-        const handleMouseUp = () => {
-            setIsDragging(false);
-        };
-
-        if (isDragging) {
-            document.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseup', handleMouseUp);
-        }
-
-        return () => {
-            document.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseup', handleMouseUp);
-        };
-    }, [isDragging, dragOffset]);
-
-    const handleMouseDown = (e) => {
-        if (headerRef.current?.contains(e.target)) {
-            e.preventDefault();
-            setIsDragging(true);
-            const rect = windowRef.current.getBoundingClientRect();
-            setDragOffset({
-                x: e.clientX - rect.left,
-                y: e.clientY - rect.top
-            });
-        }
-    };
-
-    return (
-        <div
-            ref={windowRef}
-            className={`window ${className}`}
-            style={{
-                position: 'fixed',
-                left: position.x,
-                top: position.y,
-                transform: 'none'
-            }}
-            onMouseDown={handleMouseDown}
-        >
-            <div ref={headerRef} className="window-header">
-                {children[0]}
-                {onClose && (
-                    <div className="window-controls">
-                        <button onClick={onClose}>✕</button>
-                    </div>
-                )}
-            </div>
-            <div className="window-content">
-                {children[1]}
-            </div>
-        </div>
-    );
-};
-
 const Docs = () => {
     const { path } = useParams();
     const navigate = useNavigate();
@@ -286,27 +200,34 @@ const Docs = () => {
         <div className="desktop-environment">
             <div className="desktop-workspace">
                 {windows.sidebar && (
-                    <DraggableWindow className="terminal-sidebar">
-                        <h2>Documentation</h2>
-                        <ul className="docs-list" onClick={e => e.preventDefault()}>
-                            {fileTree.map((item, index) => (
+                    <BaseWindow
+                        title="Documentation"
+                        className="terminal-sidebar"
+                        defaultPosition={{ x: 20, y: 20 }}
+                        defaultSize={{ width: 350, height: 600 }}
+                        minSize={{ width: 250, height: 200 }}
+                    >
+                        <div className="editor-tree-container">
+                            {fileTree.map(item => (
                                 <FileTreeItem
                                     key={item.path || item.name}
-                                    item={{
-                                        ...item,
-                                        isLast: index === fileTree.length - 1
-                                    }}
+                                    item={item}
                                     selectedFile={selectedFile}
                                     onSelect={handleFileSelect}
                                 />
                             ))}
-                        </ul>
-                    </DraggableWindow>
+                        </div>
+                    </BaseWindow>
                 )}
                 
                 {windows.main && (
-                    <DraggableWindow className="terminal-main-window">
-                        <h2>{selectedFile?.name || 'Documentation'}</h2>
+                    <BaseWindow
+                        title={selectedFile?.name || 'Documentation'}
+                        className="terminal-main-window"
+                        defaultPosition={{ x: 400, y: 20 }}
+                        defaultSize={{ width: 800, height: 600 }}
+                        minSize={{ width: 400, height: 300 }}
+                    >
                         <div className="terminal-main">
                             {selectedFile && (
                                 <Documentation 
@@ -315,12 +236,17 @@ const Docs = () => {
                                 />
                             )}
                         </div>
-                    </DraggableWindow>
+                    </BaseWindow>
                 )}
                 
                 {windows.notes && (
-                    <DraggableWindow className="terminal-notes">
-                        <h2>Notes</h2>
+                    <BaseWindow
+                        title="Notes"
+                        className="terminal-notes"
+                        defaultPosition={{ x: window.innerWidth - 370, y: 20 }}
+                        defaultSize={{ width: 350, height: 500 }}
+                        minSize={{ width: 250, height: 200 }}
+                    >
                         {selectedFile && (selectedFile.notes_path || selectedFile.notes) ? (
                             selectedFile.notes_path ? (
                                 <Documentation link={selectedFile.notes_path} />
@@ -330,14 +256,19 @@ const Docs = () => {
                         ) : (
                             <p>No notes available for this file</p>
                         )}
-                    </DraggableWindow>
+                    </BaseWindow>
                 )}
 
                 {windows.metadata && (
-                    <DraggableWindow className="terminal-metadata">
-                        <h2>Metadata</h2>
+                    <BaseWindow
+                        title="Metadata"
+                        className="terminal-metadata"
+                        defaultPosition={{ x: window.innerWidth - 370, y: 540 }}
+                        defaultSize={{ width: 350, height: 400 }}
+                        minSize={{ width: 250, height: 200 }}
+                    >
                         {selectedFile && <DocMetadata metadata={selectedFile.metadata} />}
-                    </DraggableWindow>
+                    </BaseWindow>
                 )}
 
                 {isDev && showDevEditor && (
