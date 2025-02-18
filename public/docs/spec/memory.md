@@ -24,3 +24,5 @@ LBL main
 ```
 
 this program sets the memory to 4096 bytes, stores the string "Hello world!" in memory starting at address 50, and then outputs the string to the screen. The program then halts.halts
+
+Note: this function does not exist at this current moment, please do not use it.
