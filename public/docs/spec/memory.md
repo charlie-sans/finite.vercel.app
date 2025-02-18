@@ -1,5 +1,5 @@
 # Memory
-
+### MEOW
 inside Micro Assembly, memory is on avarage a 32kib range (32768) of fixed width memory. This memory is used for things such as the `push` or `pop` instructions, as well as the `load` and `store` instructions. The memory is also used for the stack, which is used for storing temporary values.
 
 The memory is also used for the `call` and `ret` instructions, which are used for calling and returning from functions.
@@ -24,3 +24,5 @@ LBL main
 ```
 
 this program sets the memory to 4096 bytes, stores the string "Hello world!" in memory starting at address 50, and then outputs the string to the screen. The program then halts.halts
+
+Note: this function does not exist at this current moment, please do not use it.

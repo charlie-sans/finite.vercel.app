@@ -30,6 +30,14 @@
     overflow-y: auto;
 }
 
+.docs-sidebar h2 {
+    color: #e4e4e7;
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin: 0;
+    border-bottom: 1px solid #3f3f46;
+}
+
 /* Documentation tree list styling
  * Removes default list styling and adds custom item styling
  * for the file/folder tree structure
@@ -52,7 +60,9 @@
     color: #d4d4d8;
     cursor: pointer;
     border: 1px solid transparent;
-    margin: 1px;
+    margin: 2px 8px;
+    transition: all 0.2s ease;
+    border-radius: 4px;
 }
 
 .docs-item-icon {
@@ -111,17 +121,22 @@
  * Includes headings, paragraphs, code blocks, etc.
  */
 .documentation {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: #6b6b6b00;
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 1rem;
+    background-color: #282828;
     border: 1px solid #3f3f46;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    overflow-x: hidden;
 }
 
-/* Typography styles for documentation content
- * Consistent heading sizes and spacing
- * Text colors for dark theme
- */
+.documentation img {
+    max-width: 100%;
+    height: auto;
+}
+
 .documentation h1 {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
@@ -160,7 +175,8 @@
 .documentation pre {
     margin: 1rem 0;
     border-radius: 6px;
-    overflow: auto;
+    overflow-x: auto;
+    max-width: 100%;
     background-color: #18181b !important;
     border: 1px solid #3f3f46;
 }
@@ -190,6 +206,8 @@
  */
 .documentation table {
     width: 100%;
+    overflow-x: auto;
+    display: block;
     border-collapse: collapse;
     margin: 1rem 0;
 }
@@ -331,4 +349,1405 @@
 
 .sidebar-toggle.right {
     right: 0;
+}
+
+/* Add new metadata section styles */
+.doc-metadata {
+    background: #282828;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid #3f3f46;
+}
+
+.doc-metadata-header {
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #60a5fa;
+    margin-bottom: 0;
+    white-space: pre;
+    line-height: 1.2;
+    font-size: 0.9rem;
+    overflow: auto;
+}
+
+.doc-metadata pre {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+    border: none;
+}
+
+/* ASCII Tree Styling */
+.tree-line {
+    font-family: 'Consolas', 'Monaco', monospace;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.tree-prefix {
+    color: #666;
+}
+
+.tree-branch {
+    color: #666;
+    margin: 0 0.5rem;
+}
+
+.tree-icon {
+    margin-right: 0.5rem;
+    color: #60a5fa;
+}
+
+.tree-name {
+    color: #d4d4d8;
+}
+
+/* Fullscreen layout */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: #d4d4d8;
+}
+
+#root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Terminal-like appearance */
+.terminal {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #1a1a1a;
+    color: #d4d4d8;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.terminal-header {
+    background-color: #282828;
+    padding: 0.5rem;
+    border-bottom: 1px solid #3f3f46;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.terminal-header h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #60a5fa;
+}
+
+/* Terminal content adjustments */
+.terminal-content {
+    position: relative;
+    padding: 1rem;
+    height: calc(100vh - 4rem);
+    overflow: hidden;
+}
+
+.terminal-main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.terminal-main .documentation {
+    max-width: 900px;
+    width: 100%;
+}
+
+.terminal-main {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 1rem;
+}
+
+.terminal-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.terminal-sidebar, .terminal-notes, .terminal-metadata {
+    background-color: #282828;
+    border: 1px solid #3f3f46;
+    padding: 1rem;
+    overflow-y: auto;
+    position: relative;
+    margin: 0.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.terminal-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.terminal-notes {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.terminal-metadata {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.terminal-main {
+    flex: 1;
+    padding: 1rem;
+    background-color: #1a1a1a;
+    border: 1px solid #3f3f46;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+}
+
+/* MDI window styling */
+.mdi-window {
+    position: fixed;
+    min-width: 300px;
+    min-height: 200px;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    background-color: #282828;
+    border: 1px solid #3f3f46;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    resize: both;
+    z-index: 100;
+}
+
+.mdi-window.terminal-sidebar {
+    left: 1rem;
+    top: 1rem;
+    width: 350px;
+}
+
+.mdi-window.terminal-notes {
+    right: 1rem;
+    top: 1rem;
+    width: 350px;
+}
+
+.mdi-window.terminal-metadata {
+    left: 50%;
+    top: 1rem;
+    width: 400px;
+}
+
+/* Remove the transform-based positioning */
+.mdi-window.terminal-sidebar,
+.mdi-window.terminal-notes,
+.mdi-window.terminal-metadata {
+    transform: none;
+}
+
+/* Update Window Header styles */
+.window-header {
+    background-color: #3f3f46;
+    padding: 4px 8px;  /* Reduced padding */
+    height: 32px;      /* Fixed height */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    user-select: none;
+    border-bottom: 1px solid #4f4f56;
+}
+
+.window-header h2 {
+    margin: 0;
+    font-size: 13px;   /* Smaller font size */
+    color: #e4e4e7;
+    line-height: 1;    /* Tighter line height */
+}
+
+.window-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;          /* Reduced gap */
+    height: 100%;
+}
+
+.window-controls button {
+    padding: 2px 6px;  /* Smaller padding */
+    height: 22px;      /* Fixed height */
+    min-width: 22px;   /* Fixed width for square buttons */
+    line-height: 1;
+    font-size: 12px;   /* Smaller font */
+}
+
+.hotkey-hint {
+    font-size: 11px;   /* Smaller font size */
+    padding: 2px 4px;  /* Reduced padding */
+    height: 18px;      /* Fixed height */
+    line-height: 14px; /* Adjusted line height */
+}
+
+.mdi-window-header {
+    background-color: #3f3f46;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    user-select: none;
+}
+
+.mdi-window-header h2 {
+    margin: 0;
+    font-size: 1rem;
+    color: #60a5fa;
+}
+
+.mdi-window-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    height: auto;
+    min-height: 100px;
+}
+
+.mdi-window.terminal-main-window {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 80vh;
+    z-index: 50; /* Lower than other windows to appear behind when dragged */
+}
+
+.terminal-main {
+    margin: 0;
+    padding: 1rem;
+    background-color: #1a1a1a;
+    border: none;
+    box-shadow: none;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.terminal-content {
+    background-color: #1a1a1a;
+    position: relative;
+    height: calc(100vh - 4rem);
+    overflow: hidden;
+    padding: 0;
+}
+
+/* Adjust other MDI windows' initial positions */
+.mdi-window.terminal-sidebar {
+    left: 1rem;
+    top: 1rem;
+    width: 350px;
+    z-index: 100;
+}
+
+.mdi-window.terminal-notes {
+    right: 1rem;
+    top: 1rem;
+    width: 350px;
+    z-index: 100;
+}
+
+.mdi-window.terminal-metadata {
+    left: 50%;
+    top: 1rem;
+    transform: translateX(-50%);
+    width: 400px;
+    z-index: 100;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #282828;
+    border: 1px solid #3f3f46;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    border: 1px solid #4f4f56;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* Desktop Environment Styling */
+.desktop-environment {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #1a1a1a;
+    overflow: hidden;
+}
+
+.desktop-workspace {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.desktop-taskbar {
+    height: 40px;
+    background-color: #282828;
+    border-top: 1px solid #3f3f46;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    gap: 8px;
+    z-index: 1000;
+}
+
+.taskbar-start {
+    padding-right: 16px;
+    border-right: 1px solid #3f3f46;
+}
+
+.taskbar-windows {
+    flex: 1;
+    display: flex;
+    gap: 4px;
+    padding: 0 8px;
+}
+
+.taskbar-tray {
+    padding-left: 16px;
+    border-left: 1px solid #3f3f46;
+}
+
+.taskbar-button {
+    background: #323232;
+    border: 1px solid #3f3f46;
+    color: #d4d4d8;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 30px;
+    transition: all 0.2s ease;
+}
+
+.taskbar-button:hover {
+    background: #3f3f46;
+}
+
+.taskbar-button.active {
+    background: #4f4f56;
+    border-color: #60a5fa;
+}
+
+.taskbar-time {
+    color: #d4d4d8;
+    font-family: 'Consolas', monospace;
+    font-size: 0.9rem;
+}
+
+/* Update existing MDI window styles */
+.mdi-window {
+    position: absolute;
+    composes: window;
+}
+
+.mdi-window.terminal-main-window {
+    width: 800px;
+    height: 80vh;
+    z-index: 50;
+}
+
+.mdi-window.terminal-sidebar {
+    width: 350px;
+    z-index: 100;
+}
+
+.mdi-window.terminal-notes {
+    width: 350px;
+    z-index: 100;
+}
+
+.mdi-window.terminal-metadata {
+    width: 400px;
+    z-index: 100;
+}
+
+/* Dev Editor specific styles */
+.dev-editor {
+    composes: window;
+    width: 1400px !important;
+    height: 900px !important;
+    display: flex !important;
+    background: #1e1e1e;
+    z-index: 1000;
+}
+
+.dev-editor .window-content {
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+}
+
+.editor-sidebar {
+    width: 250px;
+    border-right: 1px solid #3f3f46;
+    background: #252526;
+    overflow-y: auto;
+}
+
+.editor-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.editor-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.dev-editor-toolbar {
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+    background: #2d2d2d;
+    border-bottom: 1px solid #3f3f46;
+}
+
+.dev-editor-toolbar input {
+    background: #1e1e1e;
+    border: 1px solid #3f3f46;
+    color: #d4d4d8;
+    padding: 4px 8px;
+    border-radius: 3px;
+}
+
+.monaco-container {
+    flex: 1;
+    min-height: 0;
+    border: 1px solid #3f3f46;
+}
+
+.preview-panel {
+    height: 200px;
+    background: #2d2d2d;
+    border-top: 1px solid #3f3f46;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+/* Default Window Styling */
+.window {
+    background-color: #282828;
+    border: 1px solid #3f3f46;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Force fixed dimensions */
+    width: var(--window-width) !important;
+    height: var(--window-height) !important;
+    min-width: var(--window-min-width);
+    min-height: var(--window-min-height);
+}
+
+.window-header {
+    background-color: #3f3f46;
+    padding: 4px 8px;  /* Reduced padding */
+    height: 32px;      /* Fixed height */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    user-select: none;
+    border-bottom: 1px solid #4f4f56;
+}
+
+.window-header h2 {
+    margin: 0;
+    font-size: 13px;   /* Smaller font size */
+    color: #e4e4e7;
+    line-height: 1;    /* Tighter line height */
+}
+
+.window-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;          /* Reduced gap */
+    height: 100%;
+}
+
+.window-controls button {
+    padding: 2px 6px;  /* Smaller padding */
+    height: 22px;      /* Fixed height */
+    min-width: 22px;   /* Fixed width for square buttons */
+    line-height: 1;
+    font-size: 12px;   /* Smaller font */
+}
+
+.hotkey-hint {
+    font-size: 11px;   /* Smaller font size */
+    padding: 2px 4px;  /* Reduced padding */
+    height: 18px;      /* Fixed height */
+    line-height: 14px; /* Adjusted line height */
+}
+
+.window-content {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Important for Firefox */
+    height: calc(100% - 32px); /* Subtract header height */
+    overflow: hidden;
+}
+
+.window-resize-handle {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 16px;
+    height: 16px;
+    cursor: se-resize;
+    background: linear-gradient(135deg, transparent 50%, #4f4f56 50%);
+}
+
+/* Editor Window Specific */
+.dev-editor .editor-layout {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+}
+
+.dev-editor .editor-sidebar {
+    width: 250px;
+    border-right: 1px solid #3f3f46;
+    background: #252526;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.dev-editor .editor-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.window-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.window-controls button {
+    background: #4f4f56;
+    border: 1px solid #60a5fa;
+    color: #d4d4d8;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Override any global styles that might affect the docs page */
+.desktop-environment {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: #1a1a1a;
+}
+
+/* Dev Editor Styles */
+.dev-editor {
+    width: 1400px !important;
+    height: 900px !important;
+    background: #1e1e1e;
+    z-index: 1000;
+    user-select: none; /* Prevent text selection while dragging */
+}
+
+.editor-container {
+    flex: 1;
+    min-height: 400px;
+    border: 1px solid #3f3f46;
+    margin-bottom: 16px;
+}
+
+.dev-editor-toolbar {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background: #2d2d2d;
+    border-bottom: 1px solid #3f3f46;
+}
+
+.dev-editor-toolbar input {
+    padding: 4px 8px;
+    background: #3f3f46;
+    border: 1px solid #4f4f56;
+    color: #d4d4d8;
+    border-radius: 4px;
+    font-family: 'Consolas', monospace;
+}
+
+.dev-editor-toolbar input:focus {
+    outline: none;
+    border-color: #60a5fa;
+}
+
+.dev-editor-toolbar button {
+    padding: 4px 12px;
+    background: #4f4f56;
+    border: 1px solid #60a5fa;
+    color: #d4d4d8;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.dev-editor-toolbar button.saved {
+    background: #059669;
+}
+
+.dev-editor-content {
+    flex: 1;
+    width: 100%;
+    height: calc(100% - 120px);
+    padding: 16px;
+    background: #1e1e1e;
+    border: none;
+    color: #d4d4d8;
+    font-family: 'Consolas', monospace;
+    font-size: 14px;
+    resize: none;
+}
+
+.dev-editor-content:focus {
+    outline: none;
+}
+
+.dev-editor-preview {
+    height: 200px;
+    background: #2d2d2d;
+    overflow-y: auto;
+    border-top: 1px solid #3f3f46;
+    padding: 16px;
+}
+
+.dev-editor-preview h3 {
+    margin: 0 0 8px 0;
+    color: #60a5fa;
+    font-size: 14px;
+}
+
+/* Dev Editor Enhancements */
+.window-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hotkey-hint {
+    font-size: 0.8rem;
+    color: #888;
+    padding: 0.2rem 0.5rem;
+    background: #1e1e1e;
+    border-radius: 3px;
+    border: 1px solid #3f3f46;
+}
+
+.dev-editor-content {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    line-height: 1.6;
+    tab-size: 4;
+}
+
+.markdown-preview {
+    padding: 1rem;
+    background: #1e1e1e;
+    border: 1px solid #3f3f46;
+    border-radius: 4px;
+}
+
+.dev-editor .mdi-window-content {
+    user-select: text; /* Re-enable text selection for content */
+}
+
+/* File Explorer Styles */
+.file-explorer {
+    position: absolute;
+    left: -250px;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    background: #1e1e1e;
+    border-right: 1px solid #3f3f46;
+    display: flex;
+    flex-direction: column;
+}
+
+.file-explorer-header {
+    padding: 8px;
+    border-bottom: 1px solid #3f3f46;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file-explorer-header h3 {
+    margin: 0;
+    color: #e4e4e7;
+}
+
+.file-explorer-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+}
+
+.file-explorer-item {
+    padding: 4px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #d4d4d8;
+    user-select: none;
+    transition: background-color 0.2s ease;
+    border-radius: 4px;
+    margin: 2px 4px;
+}
+
+.file-explorer-item:hover {
+    background: #3f3f46;
+}
+
+.file-explorer-item.active {
+    background: #3f3f46;
+    color: #60a5fa;
+}
+
+.folder-icon, .file-icon {
+    width: 20px;
+    text-align: center;
+}
+
+.loading {
+    padding: 1rem;
+    color: #888;
+    text-align: center;
+}
+
+.no-files {
+    padding: 1rem;
+    color: #888;
+    text-align: center;
+    font-style: italic;
+}
+
+.dev-editor-with-explorer {
+    padding-left: 250px;
+    width: calc(100% + 250px) !important;
+}
+
+.error-message {
+    padding: 1rem;
+    color: #ef4444;
+    text-align: center;
+    font-style: italic;
+    background: #1a1a1a;
+    border-radius: 4px;
+    margin: 8px;
+}
+
+/* Updated Editor Styles */
+.dev-editor {
+    width: 1400px !important;
+    height: 900px !important;
+}
+
+.editor-sidebar {
+    background: #1e1e1e;
+    height: 100%;
+    overflow: auto;
+    padding: 8px;
+}
+
+.editor-main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-pane {
+    background: #1e1e1e;
+    padding: 16px;
+    overflow: auto;
+    height: 100%;
+}
+
+/* Split Pane Styles */
+.Resizer {
+    background: #3f3f46;
+    z-index: 1;
+    box-sizing: border-box;
+    background-clip: padding-box;
+}
+
+.Resizer.vertical {
+    width: 11px;
+    margin: 0 -5px;
+    border-left: 5px solid rgba(255, 255, 255, 0);
+    border-right: 5px solid rgba(255, 255, 255, 0);
+    cursor: col-resize;
+}
+
+.Resizer.vertical:hover {
+    border-left: 5px solid rgba(96, 165, 250, 0.5);
+    border-right: 5px solid rgba(96, 165, 250, 0.5);
+}
+
+/* Folder Tree Styles */
+.rstm-tree-item {
+    color: #d4d4d8 !important;
+    background: transparent !important;
+}
+
+.rstm-tree-item:hover {
+    background: #3f3f46 !important;
+}
+
+.rstm-tree-item--active {
+    background: #3f3f46 !important;
+    color: #60a5fa !important;
+}
+
+.rstm-toggle-icon {
+    color: #60a5fa !important;
+}
+
+/* Editor Layout Fixes */
+.editor-layout {
+    display: flex;
+    height: 100%;
+    background: #1e1e1e;
+    overflow: hidden; /* Prevent layout from expanding */
+}
+
+.editor-workspace {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+    overflow: hidden; /* Contain all content */
+}
+
+.editor-toolbar {
+    flex-shrink: 0; /* Prevent toolbar from shrinking */
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #252526;
+    border-bottom: 1px solid #3f3f46;
+    height: 40px;
+}
+
+.monaco-container {
+    flex: 1;
+    min-height: 0; /* Allow container to shrink */
+    position: relative;
+    overflow: hidden;
+}
+
+.preview-panel {
+    flex-shrink: 0; /* Keep preview panel size fixed */
+    height: 200px;
+    background: #1e1e1e;
+    border-top: 1px solid #3f3f46;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+/* Editor Layout Fixes */
+.editor-layout {
+    display: flex;
+    height: 100%;
+    background: #1e1e1e;
+}
+
+.editor-sidebar {
+    width: 250px;
+    border-right: 1px solid #3f3f46;
+    background: #252526;
+    overflow-y: auto;
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-size: 13px;
+}
+
+.editor-workspace {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+}
+
+.editor-tree-item {
+    padding: 4px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #d4d4d8;
+    user-select: none;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.editor-tree-item:hover {
+    background: #2d2d2d;
+}
+
+.editor-tree-item.active {
+    background: #37373d;
+    color: #60a5fa;
+}
+
+.editor-toolbar {
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #252526;
+    border-bottom: 1px solid #3f3f46;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.monaco-container {
+    flex: 1;
+    min-height: 0;
+    height: calc(100% - 240px); /* Adjust for toolbar and preview panel */
+}
+
+.preview-panel {
+    height: 200px;
+    background: #1e1e1e;
+    border-top: 1px solid #3f3f46;
+    overflow-y: auto;
+    padding: 1rem;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.preview-panel h3 {
+    font-size: 13px;
+    margin: 0 0 8px 0;
+    color: #d4d4d8;
+    font-weight: normal;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #3f3f46;
+}
+
+.preview-content {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #d4d4d8;
+    padding: 0 8px;
+}
+
+.preview-content pre {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: #252526 !important;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.preview-content code {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-size: 12px;
+}
+
+.preview-content p {
+    margin: 0.5rem 0;
+}
+
+.preview-content h1, 
+.preview-content h2, 
+.preview-content h3 {
+    margin: 0.5rem 0;
+    color: #e4e4e7;
+}
+
+.preview-content {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #d4d4d8;
+}
+
+/* Window Controls */
+.window-control-btn {
+    width: 30px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid #4f4f56;
+    color: #d4d4d8;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.1s ease;
+}
+
+.window-control-btn:hover {
+    background: #4f4f56;
+}
+
+.window-control-btn.close:hover {
+    background: #ef4444;
+    border-color: #dc2626;
+}
+
+.window.maximized {
+    border-radius: 0 !important;
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 40px !important; /* Account for taskbar */
+    width: 100% !important;
+    height: calc(100vh - 40px) !important; /* Account for taskbar */
+    transform: none !important;
+    border: none;
+}
+
+.window.maximized .window-content {
+    border-radius: 0;
+    max-height: calc(100vh - 72px); /* Account for header and taskbar */
+    overflow: hidden;
+}
+
+/* Resize Handles */
+.resize-handle {
+    position: absolute;
+    background: transparent;
+    z-index: 1000;
+}
+
+.resize-handle.top { top: -3px; left: 3px; right: 3px; height: 6px; cursor: n-resize; }
+.resize-handle.right { right: -3px; top: 3px; bottom: 3px; width: 6px; cursor: e-resize; }
+.resize-handle.bottom { bottom: -3px; left: 3px; right: 3px; height: 6px; cursor: s-resize; }
+.resize-handle.left { left: -3px; top: 3px; bottom: 3px; width: 6px; cursor: w-resize; }
+
+.resize-handle.top-left { top: -3px; left: -3px; width: 6px; height: 6px; cursor: nw-resize; }
+.resize-handle.top-right { top: -3px; right: -3px; width: 6px; height: 6px; cursor: ne-resize; }
+.resize-handle.bottom-left { bottom: -3px; left: -3px; width: 6px; height: 6px; cursor: sw-resize; }
+.resize-handle.bottom-right { bottom: -3px; right: -3px; width: 6px; height: 6px; cursor: se-resize; }
+
+.resize-handle.top,
+.resize-handle.bottom {
+    left: 6px;
+    right: 6px;
+    height: 6px;
+}
+
+.resize-handle.left,
+.resize-handle.right {
+    top: 6px;
+    bottom: 6px;
+    width: 6px;
+}
+
+.resize-handle.top-left,
+.resize-handle.top-right,
+.resize-handle.bottom-left,
+.resize-handle.bottom-right {
+    width: 12px;
+    height: 12px;
+}
+
+/* Ensure content stays within window bounds */
+.mdi-window {
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 60px);
+}
+
+/* Editor Layout Fixes */
+.editor-content-area {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+.split-layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.monaco-container {
+    flex: 1;
+    height: 100%;
+    border-right: 1px solid #3f3f46;
+}
+
+.preview-panel {
+    height: 100% !important;
+    width: 100%;
+    background: #1e1e1e;
+    border-left: 1px solid #3f3f46;
+    overflow-y: auto;
+}
+
+/* Split Pane Styles */
+.Resizer.horizontal {
+    width: 11px;
+    margin: 0 -5px;
+    border-left: 5px solid rgba(255, 255, 255, 0);
+    border-right: 5px solid rgba(255, 255, 255, 0);
+    cursor: col-resize;
+}
+
+.Resizer.horizontal:hover {
+    border-left: 5px solid rgba(96, 165, 250, 0.5);
+    border-right: 5px solid rgba(96, 165, 250, 0.5);
+}
+
+/* Terminal window content scrolling */
+.terminal-main-window .window-content {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.terminal-main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    height: 100%;
+    min-height: 0;
+    background-color: #1a1a1a;
+}
+
+/* Window maximized state adjustments */
+.window.maximized .terminal-main {
+    max-height: calc(100vh - 72px); /* Account for header and taskbar */
+}
+
+/* File Tree Styles */
+.editor-tree-container {
+    height: 100%;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.folder-item {
+    cursor: pointer;
+    user-select: none;
+}
+
+.folder-children {
+    overflow: hidden;
+    transition: height 0.2s ease-out;
+}
+
+.folder-children.collapsed {
+    height: 0;
+}
+
+.folder-icon {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.folder-icon.collapsed {
+    transform: rotate(-90deg);
+}
+
+/* Tree item adjustments */
+.editor-tree-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    margin: 2px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.editor-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.metadata-btn {
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.metadata-btn:hover {
+    background: #3a3a3a;
+}
+
+/* New File Creation Styles */
+.new-file-input {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.new-file-input input {
+    background: #1e1e1e;
+    border: 1px solid #3f3f46;
+    color: #d4d4d8;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-size: 13px;
+    min-width: 200px;
+}
+
+.new-file-input input:focus {
+    outline: none;
+    border-color: #60a5fa;
+}
+
+.new-file-btn {
+    background: #2a2a2a;
+    border: 1px solid #3f3f46;
+    color: #60a5fa;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.new-file-btn:hover {
+    background: #3a3a3a;
+}
+
+.editor-tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Context Menu Styles */
+.context-menu {
+    background: #2d2d2d;
+    border: 1px solid #3f3f46;
+    border-radius: 4px;
+    padding: 4px;
+    min-width: 150px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.context-menu button {
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #d4d4d8;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.context-menu button:hover {
+    background: #3f3f46;
+    color: #60a5fa;
+}
+
+/* Split Panel Styles */
+.split-horizontal {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.split-horizontal > .gutter {
+    background-color: #3f3f46;
+    cursor: col-resize;
+    width: 4px !important;
+    margin: 0;
+    position: relative;
+}
+
+.split-horizontal > .gutter:hover {
+    background-color: #60a5fa;
+}
+
+.split-horizontal > .gutter::after {
+    content: "";
+    position: absolute;
+    left: -4px;
+    right: -4px;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+/* Ensure sidebar maintains minimum width */
+.editor-sidebar {
+    min-width: 200px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.editor-main {
+    min-width: 400px;
+    width: 100%;
 }

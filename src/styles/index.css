@@ -4,8 +4,26 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #fff;
+    min-height: 100vh;
+    height: auto; /* Change from 100% to auto */
+    overflow-x: hidden;
+    background-color: #005a9e;
 }
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+html {
+    min-height: 100vh;
+    height: auto; /* Change from 100% to auto */
+    background-color: #005a9e;
+}
+
+#root {
+    min-height: 100vh;
+    height: auto; /* Change from 100% to auto */
+    display: flex;
+    flex-direction: column;
+    background-color: #005a9e;
 }
