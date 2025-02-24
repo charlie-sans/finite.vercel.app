@@ -13,6 +13,45 @@ const documentationFiles = [
         notes: 'Any file you open that has a note or set of notes will display here.'
     },
     {
+        name: 'Standard Libary',
+        type: 'folder',
+        children: [
+            {
+                name: 'stdio',
+                type: 'folder',
+                children: [
+                    {
+                        name: 'io',
+                        type: 'file',
+                        path: 'stdlib/stdio.io.md',
+                        metadata: {
+                            author: 'Team Finite',
+                            lastUpdated: '2025-2-15',
+                            tags: ['stdio', 'io', 'library'],
+                            difficulty: 'Intermediate'
+                 
+
+                        },
+                        notes: 'IO, or input/output, is a library for reading and writing data.'
+                    },
+                    {
+                        name: 'file',
+                        type: 'file',
+                        path: 'stdlib/stdio.file.md',
+                        metadata: {
+
+                            author: 'Team Finite',
+                            lastUpdated: '2025-2-15',
+                            tags: ['stdio', 'file', 'library'],
+                            difficulty: 'Intermediate'
+                        },
+                        notes: 'This is a note for the file documentation.'
+                    }
+                ]
+            },
+        ]
+    },      
+    {
         name: 'Masm Documentation',
         type: 'folder',
         children: [

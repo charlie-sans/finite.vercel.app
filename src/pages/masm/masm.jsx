@@ -34,18 +34,19 @@ const Masm = () => {  // Capitalize component name for React convention
     HLT          ; Stop program`;
 
   return (
-    <div className="page-content product-page">  // Add page-content class
+    <div className="page-content product-page">  
       <header className="hero">
         <h1>MicroASM</h1>
-        <p className="tagline">A Modern Educational Assembly Language</p>
+        <p className="tagline">MicroAssembly's not Assembly</p>
       </header>
 
       <section className="overview">
         <h2>What is MicroASM?</h2>
         <p>
-          MicroASM is a fantasy-based Reduced Instruction Set version of x86 Assembly,
-          designed for education and virtual machine interpretation. Perfect for learning
-          assembly concepts without the complexity of traditional assembly languages.
+          MicroASM is a High level "Reduced instruction set" assembly like language
+          designed for Creative tasks, general use and educational purposes.
+          It is designed to be simple and easy to learn, while still providing
+          the power and flexibility of a Programming language.
         </p>
       </section>
 
@@ -102,7 +103,7 @@ const Masm = () => {  // Capitalize component name for React convention
         <div className="cta-buttons">
           <a href="/masm/docs" className="btn btn-primary">Documentation</a>
           <a href="https://git.gay/finite/MicroASM" className="btn btn-secondary">View Source</a>
-          <a href="https://github.com/Fy-nite"> we have a github mirror </a>
+          <a href="https://github.com/Fy-nite" className="btn btn-secondary"> we have a github mirror </a>
           {/* <a href="/playground" className="btn btn-secondary">Try Online</a> */}
         </div>
       </section>
