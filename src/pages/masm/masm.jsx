@@ -4,11 +4,7 @@ import './ProductPage.css';  // Update the import path
 
 const Masm = () => {  // Capitalize component name for React convention
   const features = [
-    {
-      title: 'Educational-First Design',
-      description: 'A simplified assembly language perfect for learning low-level programming concepts',
-      icon: '🎓'
-    },
+
     {
       title: 'Cross-Platform Support',
       description: 'Run MicroASM programs on any platform with our Python, Java, or ProtoFlux interpreters',
@@ -26,12 +22,13 @@ const Masm = () => {  // Capitalize component name for React convention
     }
   ];
 
-  const codeExample = `LBL main
-    MOV RAX 5    ; Set RAX to 5
-    MOV RBX 10   ; Set RBX to 10
-    ADD RAX RBX  ; Add RBX to RAX
-    CALL #printf RAX  ; Print result
-    HLT          ; Stop program`;
+  const codeExample = `#include "stdio.io"
+  lbl main
+    mov RAX 1
+    mov RBX 100
+    db $100 "Hello, World!"
+    call #printf
+  hlt`;
 
   return (
     <div className="page-content product-page">  
