@@ -1,5 +1,8 @@
 # stdio.print
 
+
+NOTE: due to internal changes in micro assembly, this file is called stdio.print instead of stdio.io.
+appoligies for the inconvience.
 importing stdio.print includes ( 3 ) functions you can use inside your code.
 
 ```wasm
