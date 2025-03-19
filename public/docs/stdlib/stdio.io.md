@@ -1,6 +1,6 @@
-# stdio.io
+# stdio.print
 
-importing stdio.io includes ( 3 ) functions you can use inside your code.
+importing stdio.print includes ( 3 ) functions you can use inside your code.
 
 ```wasm
 lbl printf
@@ -23,7 +23,7 @@ lbl printint
 
 here's a demo for how to use the functions in here.
 ```wasm
-#include "stdio.io"
+#include "stdio.print"
 lbl main
     mov RAX 1
     ;; the number to print
