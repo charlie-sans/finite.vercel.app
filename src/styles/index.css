@@ -1,29 +1,266 @@
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #fff;
-    min-height: 100vh;
-    height: auto; /* Change from 100% to auto */
-    overflow-x: hidden;
-    background-color: #005a9e;
+.product-page {
+  color: #e1e6ff;
+  padding: 2rem;
+  background: linear-gradient(to bottom, #0a0a1a, #1a1a2e);
+  position: relative;
+  overflow-x: hidden; /* Changed from overflow: hidden to only hide horizontal overflow */
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+/* Remove the previous ::before pseudo-element */
+.product-page::before {
+  content: none;
 }
 
-html {
-    min-height: 100vh;
-    height: auto; /* Change from 100% to auto */
-    background-color: #005a9e;
+/* Star background styles */
+.star-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+  background-size: 550px 550px, 350px 350px, 250px 250px;
+  background-position: 0 0, 40px 60px, 130px 270px;
+  animation: drift 60s linear infinite;
 }
 
-#root {
-    min-height: 100vh;
-    height: auto; /* Change from 100% to auto */
-    display: flex;
+@keyframes drift {
+  from { background-position: 0 0, 40px 60px, 130px 270px; }
+  to { background-position: 550px 550px, 390px 410px, 380px 520px; }
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-top: 2rem;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 15px rgba(0, 195, 255, 0.5);
+  background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: pulse 3s infinite alternate;
+}
+
+@keyframes pulse {
+  from { text-shadow: 0 0 15px rgba(0, 195, 255, 0.5); }
+  to { text-shadow: 0 0 25px rgba(0, 195, 255, 0.8); }
+}
+
+.tagline {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  color: #7a88c5;
+  font-style: italic;
+}
+
+.overview {
+  background: rgba(16, 24, 48, 0.7);
+  padding: 2.5rem;
+  border-radius: 16px;
+  margin-bottom: 3.5rem;
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  box-shadow: 0 0 20px rgba(0, 195, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+}
+
+.feature-card {
+  background: rgba(22, 33, 62, 0.7);
+  padding: 1.8rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(79, 172, 254, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 195, 255, 0.2);
+  border-color: rgba(79, 172, 254, 0.4);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1.2rem;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(0, 195, 255, 0.6));
+}
+
+.code-preview {
+  background: rgba(16, 24, 48, 0.7);
+  padding: 2.5rem;
+  border-radius: 16px;
+  margin-bottom: 3.5rem;
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  box-shadow: 0 0 20px rgba(0, 195, 255, 0.1);
+}
+
+.code-preview h2 {
+  color: #4facfe;
+  margin-bottom: 1.5rem;
+}
+
+.code-preview pre {
+  background: rgba(12, 18, 36, 0.8);
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  text-align: left;
+  white-space: pre;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-left: 3px solid #4facfe;
+  color: #a0b3ff;
+}
+
+.code-preview code {
+  display: block;
+  text-align: left;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin: 2.5rem 0;
+}
+
+.tool {
+  background: rgba(22, 33, 62, 0.7);
+  padding: 1.8rem;
+  border-radius: 12px;
+  transition: all 0.3s;
+  border: 1px solid rgba(79, 172, 254, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tool:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 195, 255, 0.15);
+  border-color: rgba(79, 172, 254, 0.3);
+}
+
+.tool h3 {
+  color: #4facfe;
+  margin-bottom: 0.8rem;
+}
+
+.tooling h2 {
+  color: #4facfe;
+  margin-bottom: 1.5rem;
+}
+
+.cta {
+  text-align: center;
+  margin: 5rem 0;
+  padding: 3rem;
+  background: rgba(16, 24, 48, 0.7);
+  border-radius: 16px;
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  box-shadow: 0 0 30px rgba(0, 195, 255, 0.1);
+}
+
+.cta h2 {
+  color: #4facfe;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: #0a1028;
+  box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 7px 20px rgba(79, 172, 254, 0.6);
+  transform: translateY(-3px);
+}
+
+.btn-secondary {
+  background: rgba(22, 33, 62, 0.8);
+  color: #e1e6ff;
+  border: 1px solid rgba(79, 172, 254, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(30, 45, 80, 0.9);
+  border-color: rgba(79, 172, 254, 0.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+}
+
+.product-footer {
+  text-align: center;
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(79, 172, 254, 0.2);
+  color: #7a88c5;
+}
+
+.product-footer a {
+  color: #4facfe;
+  text-decoration: none;
+  margin-left: 0.5rem;
+  transition: all 0.2s;
+}
+
+.product-footer a:hover {
+  text-shadow: 0 0 8px rgba(79, 172, 254, 0.8);
+}
+
+section {
+  transition: all 0.5s ease;
+}
+
+section h2 {
+  margin-bottom: 1.5rem;
+  color: #e1e6ff;
+}
+
+@media (max-width: 768px) {
+  .cta-buttons {
     flex-direction: column;
-    background-color: #005a9e;
+    align-items: center;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
 }
