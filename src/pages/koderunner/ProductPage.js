@@ -92,7 +92,7 @@ const ProductPage = () => {
             <p className="tagline">Your Interactive VSCode-like Environment in Resonite</p>
             <div className="hero-buttons">
               <a href="#get-started" className="primary-btn">Get Started</a>
-              <a href="https://git.gay/finite/koderunner" className="secondary-btn">View on Git</a>
+              <a href="https://git.carsoncoder.com/finite/koderunner" className="secondary-btn">View on Git</a>
             </div>
           </div>
         </AnimatedElement>
@@ -187,7 +187,19 @@ const ProductPage = () => {
         <div className="demo-container">
           <AnimatedElement animationClass="fade-right" delay={100}>
             <div className="demo-video">
-              <div className="video-placeholder"></div>
+          
+                {/* video from youTUbe */}
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/QRCEpGgVgHc"
+                  title="KodeRunner Demo"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ borderRadius: '8px' }}
+                ></iframe>
+             
             </div>
           </AnimatedElement>
           
