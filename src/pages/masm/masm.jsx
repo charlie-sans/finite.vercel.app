@@ -113,7 +113,7 @@ hlt`;
             <p className="tagline">Navigating the cosmos of computation</p>
             <div className="hero-buttons">
               <a href="#get-started" className="primary-btn">Documentation</a>
-              <a href="https://git.gay/finite/MicroASM" className="secondary-btn">View Source</a>
+              <a href="https://git.carsoncoder.com/finite/Micro-Assembly" className="secondary-btn">View Source</a>
             </div>
           </div>
         </AnimatedElement>

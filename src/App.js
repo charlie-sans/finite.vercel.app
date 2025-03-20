@@ -42,7 +42,7 @@ function App() {
                         </button>
                         <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                             <Link to="/" className="nav-item">Home</Link>
-                            <Link to="/products" className="nav-item">Products</Link>
+                            <Link to="/" className="nav-item">goober</Link>
                             <Link to="/about" className="nav-item">About</Link>
                             <Link to="/">
                                 <img src="/logo.png" alt="Finite" className="logo" />
