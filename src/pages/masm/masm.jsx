@@ -222,7 +222,7 @@ hlt`;
           <h2>Ready to Explore the Universe of Micro-Assembly?</h2>
           <div className="cta-buttons">
             <a href="/docs" className="primary-btn">Documentation</a>
-            <a href="https://git.gay/finite/MicroASM" className="secondary-btn">View Source</a>
+            <a href="https://github.com/fy-nite/Micro-Assembly" className="secondary-btn">View Source</a>
             <a href="https://github.com/Fy-nite" className="secondary-btn">GitHub Mirror</a>
           </div>
         </AnimatedElement>
@@ -230,8 +230,8 @@ hlt`;
 
       <footer className="product-footer">
         <p>
-          MicroASM is open source and available under the MIT license.
-          <a href="https://git.carsoncoder.com/finite/MicroASM">View the source code</a>.
+          MicroASM is open source and available under the AGPL license.
+          <a href="https://github.com/fy-nite/Micro-Assembly">View the source code</a>.
         </p>
         <p><small>* Note: not everything is finished and documentation will take a big hit because of this, if anything arrises. please make a git issue at our official Git repo <a href='https://git.carsoncoder.com/Finite/Micro-Assembly'>MicroASM</a></small></p>
         <p><a href="#top">Back to top</a></p>
