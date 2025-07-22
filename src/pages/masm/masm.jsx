@@ -6,11 +6,15 @@ import { FaCode, FaLaptopCode, FaCogs, FaRocket } from 'react-icons/fa';
 function useElementOnScreen(options) {
   const containerRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [hasBeenSeen, setHasBeenSeen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       const [entry] = entries;
-      setIsVisible(entry.isIntersecting);
+      if (entry.isIntersecting && !hasBeenSeen) {
+        setIsVisible(true);
+        setHasBeenSeen(true);
+      }
     }, options);
 
     const currentRef = containerRef.current;
@@ -23,7 +27,7 @@ function useElementOnScreen(options) {
         observer.unobserve(currentRef);
       }
     };
-  }, [containerRef, options]);
+  }, [containerRef, options, hasBeenSeen]);
 
   return [containerRef, isVisible];
 }
@@ -112,7 +116,7 @@ hlt`;
             <h1>Micro-Assembly</h1>
             <p className="tagline">Navigating the cosmos of computation</p>
             <div className="hero-buttons">
-              <a href="#get-started" className="primary-btn">Documentation</a>
+              <a href="/docs" className="primary-btn">Documentation</a>
               <a href="https://git.carsoncoder.com/finite/Micro-Assembly" className="secondary-btn">View Source</a>
             </div>
           </div>

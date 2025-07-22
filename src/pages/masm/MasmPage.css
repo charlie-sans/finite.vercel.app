@@ -400,6 +400,7 @@
 .animate-element {
   opacity: 0;
   transition: all var(--animation-duration) ease-out;
+  animation-fill-mode: forwards;
 }
 
 /* Custom animations */

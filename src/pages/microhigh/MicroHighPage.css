@@ -1,0 +1,408 @@
+/* Import base styles from KodeRunner ProductPage.css */
+@import url('../koderunner/ProductPage.css');
+
+:root {
+  --microhigh-primary: #7c4dff;
+  --microhigh-secondary: #00bcd4;
+  --microhigh-accent: #ff6b35;
+  --microhigh-gradient: linear-gradient(45deg, var(--microhigh-primary), var(--microhigh-secondary));
+}
+
+/* Override primary colors for μHigh theme */
+.product-container {
+  --primary: var(--microhigh-primary);
+  --secondary: var(--microhigh-secondary);
+  --accent: var(--microhigh-accent);
+}
+
+/* Playground Section */
+.playground-section {
+  margin: 6rem 0;
+  padding: 4rem 0;
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.05), rgba(0, 188, 212, 0.05));
+  border-radius: 20px;
+}
+
+.playground-container {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+  height: 500px;
+}
+
+.playground-examples {
+  background: var(--card-bg);
+  border-radius: 15px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.playground-examples h3 {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.example-btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.example-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.example-btn.active {
+  background: var(--microhigh-gradient);
+  color: white;
+  border-color: var(--microhigh-primary);
+  transform: translateX(5px);
+}
+
+.playground-editor, .playground-output {
+  background: var(--card-bg);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-header, .output-header {
+  background: linear-gradient(45deg, var(--microhigh-primary), rgba(124, 77, 255, 0.8));
+  color: white;
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  border-radius: 15px 15px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editor-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.run-btn {
+  background: var(--microhigh-accent);
+}
+
+.run-btn:hover {
+  background: #ff5722;
+}
+
+.editor-content, .output-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow: auto;
+}
+
+.code-textarea {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+}
+
+.output-content pre {
+  color: var(--text-primary);
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  margin: 6rem 0;
+  text-align: center;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.testimonial-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--microhigh-gradient);
+  border-radius: 15px 15px 0 0;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial-rating {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.star {
+  color: #ffd700;
+  font-size: 1rem;
+}
+
+.testimonial-card p {
+  color: var(--text-primary);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.testimonial-author strong {
+  color: var(--microhigh-primary);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.testimonial-author span {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* FAQ Section */
+.faq-section {
+  margin: 6rem 0;
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: 3rem auto;
+}
+
+.faq-item {
+  margin-bottom: 1rem;
+  background: var(--card-bg);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1.5rem;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.faq-question:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.faq-question.expanded {
+  background: rgba(124, 77, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.faq-icon {
+  color: var(--microhigh-primary);
+  font-size: 1.2rem;
+  min-width: 20px;
+}
+
+.chevron {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+  color: var(--text-secondary);
+}
+
+.chevron.rotated {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-answer.expanded {
+  max-height: 200px;
+}
+
+.faq-answer p {
+  padding: 0 1.5rem 1.5rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Community Section */
+.community-section {
+  margin: 6rem 0;
+  text-align: center;
+  padding: 4rem 0;
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.1), rgba(255, 107, 53, 0.1));
+  border-radius: 20px;
+}
+
+.community-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.community-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.community-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--microhigh-gradient);
+}
+
+.community-link:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  border-color: var(--microhigh-primary);
+}
+
+.community-link svg {
+  font-size: 2.5rem;
+  color: var(--microhigh-primary);
+  margin-bottom: 1rem;
+}
+
+.community-link span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.community-link p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Animation Classes */
+.animate-element {
+  opacity: 0;
+  transition: all var(--animation-duration) ease-out;
+  animation-fill-mode: forwards;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .playground-container {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 1rem;
+  }
+  
+  .playground-examples {
+    order: -1;
+  }
+  
+  .example-btn {
+    display: inline-block;
+    width: auto;
+    margin-right: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .community-links {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+  }
+  
+  .playground-container {
+    height: auto;
+  }
+  
+  .editor-content, .output-content {
+    height: 300px;
+  }
+}
