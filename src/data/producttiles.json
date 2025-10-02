@@ -1,26 +1,28 @@
 {
     "tiles": [
-        {
-            "id": "MicrOS",
-            "title": "MicrOS",
-            "description": "a Resonite Desktop enviroment",
-            "icon": "⌨️",
-            "colorClass": "tile-red-clear"
-          },
       {
         "id": "koderunner",
         "title": "KodeRunner",
-        "description": "an Interactive VSCode Experience wherever you are",
+        "description": "Cloud-powered IDE bringing VSCode experience to virtual worlds with 15+ languages",
         "icon": "⌨️",
-        "colorClass": "tile-blue-clear"
+        "colorClass": "tile-blue-clear",
+        "link": "koderunner"
       },
       {
         "id": "masm",
         "title": "Micro Assembly",
-        "description": "Simplified X86 Assembly Language",
+        "description": "Educational assembly language with modern syntax and cross-platform interpreters",
         "icon": "📟",
-        "colorClass": "tile-green-clear"
+        "colorClass": "tile-green-clear",
+        "link": "masm"
+      },
+      {
+        "id": "microhigh",
+        "title": "MicroHigh",
+        "description": "Next-generation object-oriented programming language with modern features",
+        "icon": "💻",
+        "colorClass": "tile-purple-clear",
+        "link": "microhigh"
       }
     ]
   }
-  

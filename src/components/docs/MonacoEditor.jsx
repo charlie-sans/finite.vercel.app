@@ -2,15 +2,36 @@ import { useRef, useEffect, useState } from 'react';
 import Editor from '@monaco-editor/react';
 import Split from 'react-split';
 import { loadDocument, saveDocument } from '../../api/docs';
-import BaseWindow from '../windows/BaseWindow';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import FileTreeItem from './FileTreeItem';
 
+// Lazy load SyntaxHighlighter with both component and styles
+const SyntaxHighlighter = React.lazy(() =>
+  Promise.all([
+    import('react-syntax-highlighter'),
+    import('react-syntax-highlighter/dist/esm/styles/prism')
+  ]).then(([syntaxModule, styleModule]) => ({
+    default: ({ children, language, style, ...props }) => {
+      const { Prism } = syntaxModule;
+      const vscDarkPlus = styleModule.vscDarkPlus;
+      
+      return (
+        <Prism
+          language={language}
+          style={style || vscDarkPlus}
+          PreTag="div"
+          {...props}
+        >
+          {String(children).replace(/\n$/, '')}
+        </Prism>
+      );
+    }
+  }))
+);
+
 const MonacoEditor = ({ onClose, onSave }) => {
-    const [files, setFiles] = useState([]); // Initialize as empty array
+    const [files, setFiles] = useState([]);
     const [activeFile, setActiveFile] = useState(null);
     const [content, setContent] = useState('');
     const [modified, setModified] = useState(false);
@@ -18,6 +39,18 @@ const MonacoEditor = ({ onClose, onSave }) => {
     const editorRef = useRef(null);
     const [isCreatingFile, setIsCreatingFile] = useState(false);
     const [newFileName, setNewFileName] = useState('');
+
+    useEffect(() => {
+        // Close on escape key
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        };
+        
+        document.addEventListener('keydown', handleEscape);
+        return () => document.removeEventListener('keydown', handleEscape);
+    }, [onClose]);
 
     useEffect(() => {
         // Load file tree on mount
@@ -127,154 +160,174 @@ const MonacoEditor = ({ onClose, onSave }) => {
     };
 
     return (
-        <BaseWindow
-            title="Editor"
-            className="dev-editor"
-            onClose={onClose}
-            defaultPosition={{ x: 100, y: 50 }}
-            defaultSize={{ width: 1400, height: 900 }}
-            minSize={{ width: 800, height: 600 }}
-        >
-            <Split
-                sizes={[20, 80]}
-                minSize={[200, 400]}
-                maxSize={[400, Infinity]}
-                expandToMin={false}
-                gutterSize={4}
-                className="editor-layout split-horizontal"
-            >
-                <div className="editor-sidebar">
-                    <div className="editor-tree-container">
-                        {error ? (
-                            <div className="error-message">{error}</div>
-                        ) : (
-                            files.map(item => (
-                                <FileTreeItem
-                                    key={item.path || item.name}
-                                    item={item}
-                                    selectedFile={activeFile}
-                                    onSelect={handleFileSelect}
-                                    onCreateFile={() => setIsCreatingFile(true)}
-                                    onSave={handleSave}
-                                />
-                            ))
-                        )}
+        <div className="monaco-editor-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
+            <div className="monaco-editor-modal">
+                <div className="monaco-editor-header">
+                    <h2>📝 Editor</h2>
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                        <span style={{ fontSize: '0.9rem', color: '#888' }}>Press Esc to close</span>
+                        <button 
+                            onClick={onClose}
+                            style={{
+                                background: '#ef4444',
+                                border: '1px solid #dc2626',
+                                color: 'white',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '4px',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            ✕ Close
+                        </button>
                     </div>
                 </div>
-                <div className="editor-main">
-                    <div className="editor-toolbar">
-                        <div className="editor-tabs">
-                            {activeFile ? (
-                                <>{modified ? '● ' : ''}{activeFile.name}</>
-                            ) : (
-                                isCreatingFile ? (
-                                    <div className="new-file-input">
-                                        <input
-                                            type="text"
-                                            value={newFileName}
-                                            onChange={(e) => setNewFileName(e.target.value)}
-                                            placeholder="filename.md"
-                                            onKeyPress={(e) => e.key === 'Enter' && handleCreateFile()}
-                                        />
-                                        <button onClick={handleCreateFile}>Create</button>
-                                        <button onClick={() => {
-                                            setIsCreatingFile(false);
-                                            setNewFileName('');
-                                        }}>Cancel</button>
-                                    </div>
+                
+                <div className="monaco-editor-content">
+                    <Split
+                        sizes={[20, 80]}
+                        minSize={[200, 400]}
+                        maxSize={[400, Infinity]}
+                        expandToMin={false}
+                        gutterSize={4}
+                        className="editor-layout split-horizontal"
+                    >
+                        <div className="editor-sidebar">
+                            <div className="editor-tree-container">
+                                {error ? (
+                                    <div className="error-message">{error}</div>
                                 ) : (
-                                    <button 
-                                        className="new-file-btn"
-                                        onClick={() => setIsCreatingFile(true)}
-                                    >
-                                        + New File
-                                    </button>
-                                )
-                            )}
-                        </div>
-                        <div className="editor-controls">
-                            <button 
-                                onClick={handleSave} 
-                                disabled={!modified}
-                                className={modified ? 'modified' : ''}
-                            >
-                                Save
-                            </button>
-                            {activeFile?.name.endsWith('.md') && (
-                                <button 
-                                    onClick={generateMetadata}
-                                    title="Generate metadata file"
-                                    className="metadata-btn"
-                                >
-                                    📋 Meta
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                    <div className="editor-content-area">
-                        <Split 
-                            sizes={[70, 30]} 
-                            direction="horizontal"
-                            className="split-layout"
-                        >
-                            <div className="monaco-container">
-                                <Editor
-                                    height="100%"
-                                    theme="vs-dark"
-                                    defaultLanguage="markdown"
-                                    value={content}
-                                    onChange={(value) => {
-                                        setContent(value || '');
-                                        setModified(true);
-                                    }}
-                                    onMount={(editor) => editorRef.current = editor}
-                                    options={{
-                                        minimap: { enabled: false },
-                                        fontSize: 14,
-                                        fontFamily: "'JetBrains Mono', 'Consolas', monospace",
-                                        wordWrap: 'on',
-                                        lineNumbers: 'on',
-                                        renderWhitespace: 'boundary',
-                                        scrollBeyondLastLine: false,
-                                        automaticLayout: true,
-                                        fixedOverflowWidgets: true
-                                    }}
-                                />
+                                    files.map(item => (
+                                        <FileTreeItem
+                                            key={item.path || item.name}
+                                            item={item}
+                                            selectedFile={activeFile}
+                                            onSelect={handleFileSelect}
+                                            onCreateFile={() => setIsCreatingFile(true)}
+                                            onSave={handleSave}
+                                        />
+                                    ))
+                                )}
                             </div>
-                            <div className="preview-panel">
-                                <h3>Preview</h3>
-                                <div className="preview-content">
-                                    <Markdown
-                                        remarkPlugins={[remarkGfm]}
-                                        components={{
-                                            code({node, inline, className, children, ...props}) {
-                                                const match = /language-(\w+)/.exec(className || '')
-                                                return !inline && match ? (
-                                                    <SyntaxHighlighter
-                                                        style={vscDarkPlus}
-                                                        language={match[1]}
-                                                        PreTag="div"
-                                                        {...props}
-                                                    >
-                                                        {String(children).replace(/\n$/, '')}
-                                                    </SyntaxHighlighter>
-                                                ) : (
-                                                    <code className={className} {...props}>
-                                                        {children}
-                                                    </code>
-                                                )
-                                            }
-                                        }}
+                        </div>
+                        <div className="editor-main">
+                            <div className="editor-toolbar">
+                                <div className="editor-tabs">
+                                    {activeFile ? (
+                                        <>{modified ? '● ' : ''}{activeFile.name}</>
+                                    ) : (
+                                        isCreatingFile ? (
+                                            <div className="new-file-input">
+                                                <input
+                                                    type="text"
+                                                    value={newFileName}
+                                                    onChange={(e) => setNewFileName(e.target.value)}
+                                                    placeholder="filename.md"
+                                                    onKeyPress={(e) => e.key === 'Enter' && handleCreateFile()}
+                                                />
+                                                <button onClick={handleCreateFile}>Create</button>
+                                                <button onClick={() => {
+                                                    setIsCreatingFile(false);
+                                                    setNewFileName('');
+                                                }}>Cancel</button>
+                                            </div>
+                                        ) : (
+                                            <button 
+                                                className="new-file-btn"
+                                                onClick={() => setIsCreatingFile(true)}
+                                            >
+                                                + New File
+                                            </button>
+                                        )
+                                    )}
+                                </div>
+                                <div className="editor-controls">
+                                    <button 
+                                        onClick={handleSave} 
+                                        disabled={!modified}
+                                        className={modified ? 'modified' : ''}
                                     >
-                                        {content}
-                                    </Markdown>
+                                        Save
+                                    </button>
+                                    {activeFile?.name.endsWith('.md') && (
+                                        <button 
+                                            onClick={generateMetadata}
+                                            title="Generate metadata file"
+                                            className="metadata-btn"
+                                        >
+                                            📋 Meta
+                                        </button>
+                                    )}
                                 </div>
                             </div>
-                        </Split>
-                    </div>
+                            <div className="editor-content-area">
+                                <Split 
+                                    sizes={[70, 30]} 
+                                    direction="horizontal"
+                                    className="split-layout"
+                                >
+                                    <div className="monaco-container">
+                                        <Editor
+                                            height="100%"
+                                            theme="vs-dark"
+                                            defaultLanguage="markdown"
+                                            value={content}
+                                            onChange={(value) => {
+                                                setContent(value || '');
+                                                setModified(true);
+                                            }}
+                                            onMount={(editor) => editorRef.current = editor}
+                                            options={{
+                                                minimap: { enabled: false },
+                                                fontSize: 14,
+                                                fontFamily: "'JetBrains Mono', 'Consolas', monospace",
+                                                wordWrap: 'on',
+                                                lineNumbers: 'on',
+                                                renderWhitespace: 'boundary',
+                                                scrollBeyondLastLine: false,
+                                                automaticLayout: true,
+                                                fixedOverflowWidgets: true
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="preview-panel">
+                                        <h3>Preview</h3>
+                                        <div className="preview-content">
+                                            <Markdown
+                                                remarkPlugins={[remarkGfm]}
+                                                components={{
+                                                    code({node, inline, className, children, ...props}) {
+                                                        const match = /language-(\w+)/.exec(className || '')
+                                                        return !inline && match ? (
+                                                            <React.Suspense fallback={
+                                                                <pre style={{ backgroundColor: '#1e1e1e', color: '#ffffff', padding: '1rem', borderRadius: '4px' }}>
+                                                                    <code>{String(children).replace(/\n$/, '')}</code>
+                                                                </pre>
+                                                            }>
+                                                                <SyntaxHighlighter
+                                                                    language={match[1]}
+                                                                >
+                                                                    {String(children).replace(/\n$/, '')}
+                                                                </SyntaxHighlighter>
+                                                            </React.Suspense>
+                                                        ) : (
+                                                            <code className={className} {...props}>
+                                                                {children}
+                                                            </code>
+                                                        )
+                                                    }
+                                                }}
+                                            >
+                                                {content}
+                                            </Markdown>
+                                        </div>
+                                    </div>
+                                </Split>
+                            </div>
+                        </div>
+                    </Split>
                 </div>
-            </Split>
-        </BaseWindow>
+            </div>
+        </div>
     );
 };
 
